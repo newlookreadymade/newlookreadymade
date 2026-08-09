@@ -19,3 +19,11 @@ Cloudflare Pages पर Static Assets (HTML/CSS/JS/Images) अपलोड क�
 
 🎉 आपकी वेबसाइट तुरंत बिना किसी रिमार्क या एरर के लाइव हो जाएगी:
 `https://new-look-readymade.pages.dev`
+
+
+## v3 Updates
+- Stylish Owner photo mini-badge beside Visit Store.
+- Checkout City, State and Pincode are user-entered; no fixed Salemabad/305814 values.
+- All India Home Delivery messaging.
+- UPI/COD selector removed from checkout.
+- Customer Return Order request with WhatsApp submission added.

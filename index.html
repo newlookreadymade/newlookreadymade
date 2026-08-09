@@ -44,7 +44,7 @@
   <!-- TOP ANNOUNCEMENT BAR -->
   <div class="top-bar">
     <div class="top-bar-info">
-      <span>🚚 <b>Salemabad में Home Delivery उपलब्ध</b></span>
+      <span>🚚 <b>पूरे भारत में Home Delivery उपलब्ध</b></span>
       <span>📲 <b>WhatsApp ऑर्डर: 8503090848</b></span>
     </div>
     <div class="top-bar-contact">
@@ -70,6 +70,13 @@
         <li><a href="#catalog">Collection</a></li>
         <li><a href="#offers">Special Offers</a></li>
         <li><a href="#contact">Visit Store</a></li>
+        <li>
+          <a href="#owner-profile" class="owner-mini-badge" title="Store Owner">
+            <img src="owner.png" alt="Owner">
+            <span>OWNER</span>
+          </a>
+        </li>
+        <li><a href="#return-order" class="return-nav-link" onclick="setTimeout(openReturnModal, 50)">↩ Return</a></li>
       </ul>
 
       <!-- Action Buttons & Search -->
@@ -119,6 +126,7 @@
           <li><a href="#catalog" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Shop Collection</a></li>
           <li><a href="#offers" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Special Offers</a></li>
           <li><a href="#contact" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Store Address</a></li>
+          <li><a href="#return-order" onclick="document.getElementById('mobile-overlay').classList.remove('active'); setTimeout(openReturnModal, 50)">↩️ Return Order</a></li>
         </ul>
       </div>
       <div>
@@ -140,7 +148,7 @@
             <span>नया Fashion Look</span>
           </h1>
           <p class="hero-desc">
-            Men • Women • Kids — लेटेस्ट रेडीमेड कलेक्शन, प्रीमियम फैब्रिक, बेहतरीन फिटिंग और Salemabad में सीधी WhatsApp होम डिलीवरी।
+            Men • Women • Kids — लेटेस्ट रेडीमेड कलेक्शन, प्रीमियम फैब्रिक, बेहतरीन फिटिंग और पूरे भारत में सीधी WhatsApp होम डिलीवरी।
           </p>
           <div class="hero-buttons">
             <a class="btn btn-gold" href="#catalog">🛍️ Shop Collection</a>
@@ -167,7 +175,7 @@
             </div>
             <div class="hero-feature-item">
               <div class="hero-feature-icon">✓</div>
-              <div><b>Easy Delivery</b>: Direct Home Delivery in Salemabad</div>
+              <div><b>Easy Delivery</b>: All India Home Delivery</div>
             </div>
           </div>
         </div>
@@ -253,12 +261,7 @@
         <div class="feature-card">
           <div class="feature-card-icon">🚚</div>
           <h4>Fast Home Delivery</h4>
-          <p>Salemabad व आसपास के क्षेत्रों में डिलीवरी</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-card-icon">💳</div>
-          <h4>Online UPI Payment</h4>
-          <p>Google Pay, PhonePe, Paytm व Cash</p>
+          <p>पूरे भारत में Home Delivery</p>
         </div>
       </div>
     </section>
@@ -286,7 +289,7 @@
           <div style="max-width:500px; text-align:left;">
             <h3 style="margin:0 0 10px; font-size:1.6rem;">New Look Readymade</h3>
             <p style="margin:0 0 12px; color:#475569; line-height:1.7;">
-              Salemabad में आपका अपना भरोसेमंद Readymade Store।
+              पूरे भारत में डिलीवरी करने वाला आपका भरोसेमंद Readymade Store।
               Men, Women और Kids के लिए नवीनतम फैशन कलेक्शन उपलब्ध है।
             </p>
             <p style="margin:0; font-weight:700; color:#1e40af;">
@@ -357,7 +360,7 @@
           <span id="cart-subtotal" style="font-size:1.2rem; font-weight:800;">₹0</span>
         </div>
         <div style="font-size:0.75rem; color:#16a34a; font-weight:600; text-align:center; margin:-4px 0 10px;">
-          🚚 Salemabad में Free Home Delivery!
+          🚚 पूरे भारत में Home Delivery उपलब्ध
         </div>
         <button class="btn btn-gold" style="width:100%; font-size:1rem; padding:13px; border-radius:12px;" id="checkout-btn">
           📋 डिलीवरी Details भरें &amp; Order करें
@@ -384,7 +387,7 @@
           <div style="font-size:2.2rem;">📋</div>
           <h2 style="font-family:'Playfair Display',serif; margin:4px 0 4px; font-size:1.4rem;">डिलीवरी Details भरें</h2>
           <p style="color:#64748b; font-size:0.85rem; margin:0;">
-            नीचे अपना नाम, पता और payment चुनें — WhatsApp पर receipt मिलेगी
+            नीचे अपना नाम और पूरा delivery address भरें — WhatsApp पर order details भेजें
           </p>
         </div>
 
@@ -410,48 +413,22 @@
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div class="form-group">
-              <label>शहर / क्षेत्र (City):</label>
-              <input type="text" class="form-control" id="cust-city" value="Salemabad" readonly>
+              <label>शहर / क्षेत्र (City): *</label>
+              <input type="text" class="form-control" id="cust-city" placeholder="उदा: Jaipur" required>
             </div>
             <div class="form-group">
-              <label>पिन कोड (Pincode):</label>
-              <input type="text" class="form-control" value="305814" readonly>
+              <label>राज्य (State): *</label>
+              <input type="text" class="form-control" id="cust-state" placeholder="उदा: Rajasthan" required>
             </div>
           </div>
 
-          <!-- PAYMENT METHOD SELECTOR -->
-          <div class="form-group" style="margin-top:10px;">
-            <label style="font-weight:700; font-size:0.95rem; margin-bottom:8px; display:block;">💳 भुगतान का माध्यम चुनें (Payment Mode): *</label>
-            
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1.5px solid var(--border-blue); border-radius:8px; cursor:pointer; background:#fff;">
-                <input type="radio" name="payment_method" value="UPI" checked onclick="togglePaymentMethodDetails('UPI')">
-                <div>
-                  <b>💳 Online UPI Payment</b> (Google Pay, PhonePe, Paytm, BHIM)
-                  <div style="font-size:0.78rem; color:#64748b;">ऑर्डर के बाद तुरंत UPI QR Code / UPI ID पर ऑनलाइन भुगतान करें</div>
-                </div>
-              </label>
-
-              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1.5px solid var(--border-blue); border-radius:8px; cursor:pointer; background:#fff;">
-                <input type="radio" name="payment_method" value="COD" onclick="togglePaymentMethodDetails('COD')">
-                <div>
-                  <b>💵 Cash on Delivery (COD)</b>
-                  <div style="font-size:0.78rem; color:#64748b;">डिलीवरी मिलने पर नकद या डिजिटल पेमेंट करें</div>
-                </div>
-              </label>
-            </div>
+          <div class="form-group">
+            <label>पिन कोड (Pincode): *</label>
+            <input type="text" class="form-control" id="cust-pincode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6 अंकों का Pincode" required>
           </div>
 
-          <!-- UPI Details Info Box -->
-          <div id="upi-details-sec" style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:12px; margin-bottom:15px; font-size:0.85rem;">
-            <div style="font-weight:700; color:#1d4ed8;">📲 Store Official UPI ID:</div>
-            <div style="font-size:1rem; font-weight:800; color:#0f172a; margin:4px 0;">8503090848@ybl</div>
-            <div style="color:#475569;">ऑर्डर सबमिट करने पर व्हाट्सएप रसीद जनरेट होगी, जिसपर पेमेंट सेंड किया जा सकता है।</div>
-          </div>
-
-          <div id="cod-details-sec" style="display:none; background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:12px; margin-bottom:15px; font-size:0.85rem;">
-            <div style="font-weight:700; color:#15803d;">🚚 Cash on Delivery Active</div>
-            <div style="color:#334155;">आपके Salemabad पते पर डिलीवरी बॉय सामान पहुंचाते समय पेमेंट लेगा।</div>
+          <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px; margin:10px 0 15px; font-size:0.86rem; color:#1e40af;">
+            🚚 <b>All India Delivery:</b> पूरे भारत में आपके दिए हुए सही Address, City, State और Pincode पर डिलीवरी उपलब्ध है।
           </div>
 
           <button type="submit" class="btn btn-gold" style="width:100%; font-size:1.05rem;">
@@ -462,6 +439,54 @@
 
       <!-- SUCCESS CONFIRMATION SECTION -->
       <div id="checkout-success-sec" style="display:none;"></div>
+    </div>
+  </div>
+
+
+  <!-- CUSTOMER RETURN ORDER MODAL -->
+  <div class="modal-overlay" id="return-modal-overlay">
+    <div class="admin-modal-container return-modal-container" style="max-width:560px;">
+      <button class="close-modal" id="close-return-modal" onclick="closeReturnModal()">✕</button>
+      <div id="return-form-sec">
+        <div style="text-align:center; margin-bottom:18px;">
+          <div style="font-size:2.2rem;">↩️</div>
+          <h2 style="font-family:'Playfair Display',serif; margin:4px 0;">Return Order</h2>
+          <p style="color:#64748b; font-size:0.85rem; margin:0;">
+            अपना Order ID और जानकारी भरें। Return Request WhatsApp पर भेजी जाएगी।
+          </p>
+        </div>
+        <form id="customer-return-form">
+          <div class="form-group">
+            <label>Order ID: *</label>
+            <input type="text" class="form-control" id="return-order-id" placeholder="उदा: NLR-123456" required>
+          </div>
+          <div class="form-group">
+            <label>Registered Mobile / WhatsApp No.: *</label>
+            <input type="tel" class="form-control" id="return-phone" placeholder="10 अंकों का मोबाइल नंबर" required>
+          </div>
+          <div class="form-group">
+            <label>Return Reason: *</label>
+            <select class="form-control" id="return-reason" required>
+              <option value="">कारण चुनें</option>
+              <option>Size / Fitting Issue</option>
+              <option>Wrong Product Received</option>
+              <option>Damaged / Defective Product</option>
+              <option>Product Not as Expected</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Return Details:</label>
+            <textarea class="form-control" id="return-details" rows="4" placeholder="कृपया समस्या/Return की जानकारी लिखें..."></textarea>
+          </div>
+          <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:12px; margin-bottom:15px; font-size:.84rem; color:#9a3412;">
+            ℹ️ Return request प्राप्त होने के बाद Store Team आपसे WhatsApp/Call पर Return की प्रक्रिया और eligibility की पुष्टि करेगी।
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%; font-size:1.02rem;">
+            ↩️ Return Request भेजें
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -640,11 +665,18 @@
         </ul>
       </div>
 
+      <div class="footer-col" id="return-order">
+        <h4>Customer Service</h4>
+        <p>🚚 All India Home Delivery</p>
+        <p>↩️ Order Return / Exchange Request</p>
+        <button class="btn btn-outline footer-return-btn" onclick="openReturnModal()">↩️ Return Order</button>
+      </div>
+
       <div class="footer-col">
         <h4>Contact Store</h4>
         <p>📍 Shree Nimark Tirth, Salemabad</p>
         <p>📞 Phone: 8503090848</p>
-        <p>🚚 Home Delivery Available</p>
+        <p>🚚 All India Home Delivery Available</p>
       </div>
     </div>
 

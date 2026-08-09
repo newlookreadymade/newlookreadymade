@@ -1296,3 +1296,23 @@ footer {
     height: 180px;
   }
 }
+
+
+/* Header owner mini profile badge */
+.owner-mini-badge {
+  display:inline-flex !important; align-items:center; gap:7px;
+  text-decoration:none !important; padding:3px 9px 3px 3px;
+  border:1.5px solid #d4af37; border-radius:999px; background:#fff;
+  box-shadow:0 5px 16px rgba(15,23,42,.10); transition:.2s ease;
+}
+.owner-mini-badge:hover { transform:translateY(-1px) scale(1.02); box-shadow:0 8px 20px rgba(15,23,42,.16); }
+.owner-mini-badge img { width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid #d4af37; display:block; }
+.owner-mini-badge span { font-size:.72rem; font-weight:900; letter-spacing:.6px; color:#1e40af; }
+.return-nav-link { font-weight:800 !important; color:#b45309 !important; white-space:nowrap; }
+.footer-return-btn { margin-top:8px; border-color:#f59e0b !important; color:#f59e0b !important; }
+.return-modal-container { max-height:90vh; overflow-y:auto; }
+@media (max-width:900px) {
+  .owner-mini-badge img { width:34px; height:34px; }
+  .owner-mini-badge span { font-size:.65rem; }
+  .return-nav-link { display:none !important; }
+}

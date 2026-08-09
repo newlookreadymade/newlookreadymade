@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateBadges();
   setupEventListeners();
   setupCheckoutListeners();
+  setupReturnListeners();
   setupAdminListeners();
 });
 
@@ -645,106 +646,89 @@ function renderCheckoutOrderSummary() {
 }
 
 
-function togglePaymentMethodDetails(method) {
-  const upiSec = document.getElementById('upi-details-sec');
-  const codSec = document.getElementById('cod-details-sec');
-  
-  if (method === 'UPI') {
-    upiSec.style.display = 'block';
-    codSec.style.display = 'none';
-  } else {
-    upiSec.style.display = 'none';
-    codSec.style.display = 'block';
-  }
-}
-
 function processCustomerOrderSubmit(e) {
   e.preventDefault();
-
   const custName = document.getElementById('cust-name').value.trim();
   const custPhone = document.getElementById('cust-phone').value.trim();
   const custAddress = document.getElementById('cust-address').value.trim();
-  const custCity = document.getElementById('cust-city').value.trim() || 'Salemabad';
-  const paymentMode = document.querySelector('input[name="payment_method"]:checked').value;
+  const custCity = document.getElementById('cust-city').value.trim();
+  const custState = document.getElementById('cust-state').value.trim();
+  const custPincode = document.getElementById('cust-pincode').value.trim();
 
-  if (!custName || !custPhone || !custAddress) {
-    alert('कृपया अपना नाम, मोबाइल नंबर और डिलीवरी एड्रेस पूरा दर्ज करें।');
+  if (!custName || !custPhone || !custAddress || !custCity || !custState || !/^\d{6}$/.test(custPincode)) {
+    alert('कृपया नाम, मोबाइल, पूरा पता, City, State और 6 अंकों का Pincode सही दर्ज करें।');
     return;
   }
 
   let totalAmount = 0;
   cart.forEach(item => totalAmount += (item.price * item.qty));
-
   const orderId = 'NLR-' + Math.floor(100000 + Math.random() * 900000);
   const orderDate = new Date().toLocaleString('hi-IN');
+  const fullAddress = `${custAddress}, ${custCity}, ${custState} - ${custPincode}`;
 
   const newOrderObj = {
-    orderId,
-    date: orderDate,
-    customerName: custName,
-    phone: custPhone,
-    address: `${custAddress}, ${custCity}`,
-    paymentMode,
-    items: [...cart],
-    total: totalAmount
+    orderId, date: orderDate, customerName: custName, phone: custPhone,
+    address: fullAddress, city: custCity, state: custState, pincode: custPincode,
+    paymentMode: 'Store confirmation required', items: [...cart], total: totalAmount,
+    status: 'Order Placed'
   };
-
   ordersLog.unshift(newOrderObj);
   localStorage.setItem('nlr_orders_log', JSON.stringify(ordersLog));
 
-  let text = `🛍️ *NEW LOOK READYMADE - ORDER RECEIPT*\n`;
-  text += `-----------------------------------\n`;
-  text += `📋 *Order ID*: ${orderId}\n`;
-  text += `📅 *Date*: ${orderDate}\n`;
-  text += `👤 *Customer*: ${custName}\n`;
-  text += `📞 *Phone*: ${custPhone}\n`;
-  text += `📍 *Delivery Address*: ${custAddress}, ${custCity}\n`;
-  text += `💳 *Payment Mode*: ${paymentMode === 'UPI' ? 'Online UPI Payment (GPay/PhonePe)' : 'Cash on Delivery (COD)'}\n`;
-  text += `-----------------------------------\n*ORDERED ITEMS*:\n`;
-
-  cart.forEach((item, index) => {
-    text += `${index + 1}. *${item.title}*\n   Size: ${item.selectedSize} | Qty: ${item.qty} | Price: ₹${item.price * item.qty}\n`;
-  });
-
-  text += `-----------------------------------\n`;
+  let text = `🛍️ *NEW LOOK READYMADE - NEW ORDER*\n-----------------------------------\n`;
+  text += `📋 *Order ID*: ${orderId}\n📅 *Date*: ${orderDate}\n`;
+  text += `👤 *Customer*: ${custName}\n📞 *Phone*: ${custPhone}\n`;
+  text += `📍 *Delivery Address*: ${fullAddress}\n🚚 *Delivery*: All India Home Delivery\n`;
   text += `💰 *TOTAL AMOUNT*: ₹${totalAmount}\n`;
-  text += `🚚 *Status*: Order Placed (Home Delivery Salemabad)\n`;
+  text += `💳 *Payment*: Store will contact customer for payment instructions\n-----------------------------------\n*ORDERED ITEMS*:\n`;
+  cart.forEach((item,index)=>{ text += `${index+1}. *${item.title}*\n   Size: ${item.selectedSize} | Qty: ${item.qty} | Price: ₹${item.price*item.qty}\n`; });
+  text += `-----------------------------------\n🚚 *Status*: Order Placed - All India Delivery\n`;
 
-  document.getElementById('checkout-form-sec').style.display = 'none';
-  const successSec = document.getElementById('checkout-success-sec');
-  
-  successSec.innerHTML = `
-    <div style="text-align:center; padding:20px 10px;">
-      <div style="font-size:4rem; color:#10b981; margin-bottom:10px;">🎉</div>
-      <h2 style="font-family:'Playfair Display',serif; color:#0f172a; margin-bottom:6px;">ऑर्डर सफलतापूर्वक प्राप्त हुआ!</h2>
-      <p style="color:#64748b; font-size:0.95rem; margin-bottom:18px;">
-        धन्यवाद <b>${custName}</b>! आपका ऑर्डर नंबर <b>${orderId}</b> सहेज लिया गया है।
-      </p>
-
-      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:15px; text-align:left; margin-bottom:20px; font-size:0.9rem;">
-        <div><b>कुल बिल (Total)</b>: ₹${totalAmount}</div>
-        <div><b>पेमेंट का माध्यम</b>: ${paymentMode === 'UPI' ? '💳 Online UPI (Google Pay/PhonePe/Paytm)' : '💵 Cash on Delivery (COD)'}</div>
-        <div><b>डिलीवरी पता</b>: ${custAddress}, ${custCity}</div>
+  document.getElementById('checkout-form-sec').style.display='none';
+  const successSec=document.getElementById('checkout-success-sec');
+  successSec.innerHTML=`
+    <div style="text-align:center;padding:20px 10px;">
+      <div style="font-size:4rem;color:#10b981;">🎉</div>
+      <h2 style="font-family:'Playfair Display',serif;color:#0f172a;">ऑर्डर सफलतापूर्वक प्राप्त हुआ!</h2>
+      <p style="color:#64748b;">धन्यवाद <b>${custName}</b>! आपका ऑर्डर नंबर <b>${orderId}</b> सहेज लिया गया है।</p>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:15px;text-align:left;margin:18px 0;font-size:.9rem;">
+        <div><b>कुल बिल</b>: ₹${totalAmount}</div>
+        <div><b>डिलीवरी पता</b>: ${fullAddress}</div>
         <div><b>संपर्क नंबर</b>: ${custPhone}</div>
+        <div><b>डिलीवरी</b>: 🚚 All India Home Delivery</div>
+        <div><b>पेमेंट</b>: Store confirmation के बाद</div>
       </div>
-
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <a class="btn btn-whatsapp" style="width:100%; font-size:1.05rem;" href="https://wa.me/918503090848?text=${encodeURIComponent(text)}" target="_blank">
-          📲 WhatsApp पर रसीद (Receipt) सेंड करें
-        </a>
-        <button class="btn btn-outline" style="color:#111; border-color:#cbd5e1;" onclick="closeCheckoutModal()">
-          🛍️ और शॉपिंग करें
-        </button>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a class="btn btn-whatsapp" style="width:100%;font-size:1.05rem;" href="https://wa.me/918503090848?text=${encodeURIComponent(text)}" target="_blank">📲 WhatsApp पर Order Details भेजें</a>
+        <button class="btn btn-outline" style="color:#111;border-color:#cbd5e1;" onclick="closeCheckoutModal()">🛍️ और शॉपिंग करें</button>
       </div>
-    </div>
-  `;
+    </div>`;
+  successSec.style.display='block';
+  cart=[]; localStorage.setItem('nlr_cart',JSON.stringify(cart)); updateBadges(); renderCartDrawer();
+}
 
-  successSec.style.display = 'block';
-
-  cart = [];
-  localStorage.setItem('nlr_cart', JSON.stringify(cart));
-  updateBadges();
-  renderCartDrawer();
+function openReturnModal(){ closeAllModals(); const overlay=document.getElementById('return-modal-overlay'); if(overlay) overlay.classList.add('active'); }
+function closeReturnModal(){ const overlay=document.getElementById('return-modal-overlay'); if(overlay) overlay.classList.remove('active'); }
+function setupReturnListeners(){
+  const form=document.getElementById('customer-return-form'); if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    const orderId=document.getElementById('return-order-id').value.trim();
+    const phone=document.getElementById('return-phone').value.trim();
+    const reason=document.getElementById('return-reason').value;
+    const details=document.getElementById('return-details').value.trim();
+    if(!orderId||!phone||!reason){ alert('कृपया Order ID, Mobile Number और Return Reason भरें।'); return; }
+    const returnId='RET-'+Math.floor(100000+Math.random()*900000);
+    const returnDate=new Date().toLocaleString('hi-IN');
+    const returnsLog=JSON.parse(localStorage.getItem('nlr_returns_log')||'[]');
+    returnsLog.unshift({returnId,orderId,phone,reason,details,date:returnDate,status:'Return Request Received'});
+    localStorage.setItem('nlr_returns_log',JSON.stringify(returnsLog));
+    let msg=`↩️ *NEW LOOK READYMADE - RETURN REQUEST*\n-----------------------------------\n`;
+    msg+=`🔖 *Return ID*: ${returnId}\n📋 *Order ID*: ${orderId}\n📞 *Customer Mobile*: ${phone}\n📝 *Reason*: ${reason}\n`;
+    if(details) msg+=`📄 *Details*: ${details}\n`;
+    msg+=`📅 *Date*: ${returnDate}\n-----------------------------------\nकृपया Return/Exchange प्रक्रिया के लिए ग्राहक से संपर्क करें।`;
+    document.getElementById('return-form-sec').innerHTML=`<div style="text-align:center;padding:20px 10px;"><div style="font-size:4rem;color:#10b981;">↩️</div><h2 style="font-family:'Playfair Display',serif;color:#0f172a;">Return Request भेज दी गई!</h2><p style="color:#64748b;">आपका Return Request ID: <b>${returnId}</b></p><a class="btn btn-whatsapp" style="width:100%;margin-top:12px;" href="https://wa.me/918503090848?text=${encodeURIComponent(msg)}" target="_blank">📲 WhatsApp पर Return Request भेजें</a><button class="btn btn-outline" style="width:100%;margin-top:10px;" onclick="closeReturnModal()">बंद करें</button></div>`;
+  });
 }
 
 /* ==========================================================================
@@ -949,7 +933,7 @@ function renderAdminOrdersList() {
         👤 ग्राहक: ${order.customerName} (${order.phone})
       </div>
       <div style="font-size:0.82rem; color:#475569; margin-bottom:6px;">
-        📍 पता: ${order.address} | Payment: <b>${order.paymentMode}</b>
+        📍 पता: ${order.address}
       </div>
       <div style="font-size:0.85rem; color:#334155; margin-bottom:8px;">
         ${order.items.map(item => `• ${item.title} (Size: ${item.selectedSize}, Qty: ${item.qty})`).join('<br>')}
