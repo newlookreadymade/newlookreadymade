@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Look Readymade | Salemabad - Men, Women & Kids Fashion</title>
+  <meta name="description" content="New Look Readymade in Shree Nimark Tirth, Salemabad. Complete family store for Men, Women & Kids readymade clothing. WhatsApp ordering & Home delivery available. Phone: 8503090848.">
+  <meta name="keywords" content="New Look Readymade, Salemabad clothes shop, cloth store Salemabad, readymade fashion, Men Kurtis Shirts Jeans, Shree Nimark Tirth Salemabad">
+
+  <!-- Open Graph / Social Media Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="New Look Readymade | Salemabad Fashion Store">
+  <meta property="og:description" content="Latest Readymade Collection for Men, Women & Kids. Easy WhatsApp Orders & Home Delivery in Salemabad.">
+  <meta property="og:image" content="logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Local Business Schema for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "New Look Readymade",
+    "image": "logo.png",
+    "telephone": "+918503090848",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Shree Nimark Tirth",
+      "addressLocality": "Salemabad",
+      "addressRegion": "Rajasthan",
+      "addressCountry": "IN"
+    },
+    "url": "https://newlookreadymade.pages.dev",
+    "priceRange": "₹₹"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="top-bar">
+    <div class="top-bar-info">
+      <span>🚚 <b>Salemabad में Home Delivery उपलब्ध</b></span>
+      <span>📲 <b>WhatsApp ऑर्डर: 8503090848</b></span>
+    </div>
+    <div class="top-bar-contact">
+      <a href="tel:+918503090848">📞 Call Now: 8503090848</a>
+    </div>
+  </div>
+
+  <!-- STICKY HEADER -->
+  <header>
+    <div class="nav-container">
+      <a href="#home" class="logo-link">
+        <img src="logo.png" alt="New Look Readymade Logo" class="brand-logo">
+        <div class="brand-text">
+          <b>New Look</b>
+          <span>READYMADE</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <ul class="nav-menu">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#catalog">Collection</a></li>
+        <li><a href="#offers">Special Offers</a></li>
+        <li><a href="#contact">Visit Store</a></li>
+      </ul>
+
+      <!-- Action Buttons & Search -->
+      <div class="nav-actions">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Search clothes...">
+        </div>
+
+        <button class="icon-btn" id="wishlist-btn" title="Wishlist">
+          🤍
+          <span class="badge-count" id="wishlist-badge">0</span>
+        </button>
+
+        <button class="icon-btn" id="cart-btn" title="Cart Drawer">
+          🛒
+          <span class="badge-count" id="cart-badge">0</span>
+        </button>
+
+        <!-- Admin Login Button -->
+        <button class="icon-btn" id="admin-btn" title="Admin Store Panel" style="background:var(--dark-bg); color:var(--gold-light);">
+          ⚙️
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Open Navigation Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobile-overlay">
+    <div class="mobile-drawer">
+      <div>
+        <div class="drawer-header">
+          <div class="brand-text">
+            <b style="color:#fff;">New Look</b>
+            <span>READYMADE</span>
+          </div>
+          <button class="close-drawer" id="close-drawer">✕</button>
+        </div>
+        <ul class="mobile-links">
+          <li><a href="#home" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Home</a></li>
+          <li><a href="#categories" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Categories</a></li>
+          <li><a href="#catalog" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Shop Collection</a></li>
+          <li><a href="#offers" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Special Offers</a></li>
+          <li><a href="#contact" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Store Address</a></li>
+          <li><a href="#" onclick="document.getElementById('mobile-overlay').classList.remove('active'); openAdminModal();">⚙️ Admin Login</a></li>
+        </ul>
+      </div>
+      <div>
+        <a class="btn btn-whatsapp" style="width:100%; margin-top:20px;" href="https://wa.me/918503090848?text=Namaste%20New%20Look%20Readymade" target="_blank">
+          📲 WhatsApp Order
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="home">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <div>
+          <span class="hero-tag">✨ NEW LOOK • READYMADE STORE</span>
+          <h1 class="hero-title">
+            आपके पूरे परिवार के लिए
+            <span>नया Fashion Look</span>
+          </h1>
+          <p class="hero-desc">
+            Men • Women • Kids — लेटेस्ट रेडीमेड कलेक्शन, प्रीमियम फैब्रिक, बेहतरीन फिटिंग और Salemabad में सीधी WhatsApp होम डिलीवरी।
+          </p>
+          <div class="hero-buttons">
+            <a class="btn btn-gold" href="#catalog">🛍️ Shop Collection</a>
+            <a class="btn btn-whatsapp" href="https://wa.me/918503090848?text=Namaste%20New%20Look%20Readymade%2C%20mujhe%20latest%20collection%20dekhni%20hai." target="_blank">
+              📲 WhatsApp पर पूछें
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-title">🌟 Why Shop At New Look?</div>
+          <div class="hero-features-list">
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon">✓</div>
+              <div><b>Men's Readymade</b>: Formal Shirts, Jeans, Kurtas</div>
+            </div>
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon">✓</div>
+              <div><b>Women's Wear</b>: Kurtis, Anarkali & Designer Suits</div>
+            </div>
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon">✓</div>
+              <div><b>Kids Special</b>: Comfortable Festive & Party Wear</div>
+            </div>
+            <div class="hero-feature-item">
+              <div class="hero-feature-icon">✓</div>
+              <div><b>Easy Delivery</b>: Direct Home Delivery in Salemabad</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP BY CATEGORY -->
+    <section id="categories">
+      <div class="section-header">
+        <span class="section-subtitle">POPULAR CATEGORIES</span>
+        <h2 class="section-title">Shop By Category</h2>
+      </div>
+      <div class="category-grid">
+        <div class="category-card" onclick="document.querySelector('.filter-btn[data-category=\'men\']').click(); location.href='#catalog';">
+          <div class="category-icon">👔</div>
+          <h3>Men's Wear</h3>
+          <p>Shirts, T-Shirts, Jeans, Trousers & Kurta Pajama</p>
+        </div>
+        <div class="category-card" onclick="document.querySelector('.filter-btn[data-category=\'women\']').click(); location.href='#catalog';">
+          <div class="category-icon">👗</div>
+          <h3>Women's Wear</h3>
+          <p>Designer Kurtis, Party Suits, Tops & Gowns</p>
+        </div>
+        <div class="category-card" onclick="document.querySelector('.filter-btn[data-category=\'kids\']').click(); location.href='#catalog';">
+          <div class="category-icon">🧒</div>
+          <h3>Kids Wear</h3>
+          <p>Stylish & comfortable festive dresses for boys & girls</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DYNAMIC PRODUCT CATALOG -->
+    <section id="catalog">
+      <div class="section-header">
+        <span class="section-subtitle">LATEST ARRIVALS</span>
+        <h2 class="section-title">Featured Clothing Collection</h2>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-category="all">All Clothes</button>
+        <button class="filter-btn" data-category="men">Men's Wear</button>
+        <button class="filter-btn" data-category="women">Women's Wear</button>
+        <button class="filter-btn" data-category="kids">Kids Wear</button>
+      </div>
+
+      <!-- Dynamic Product Grid -->
+      <div class="product-grid" id="product-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- SPECIAL OFFERS BANNER -->
+    <section id="offers">
+      <div class="offer-banner">
+        <div class="offer-content">
+          <h2>Special Festival Offers 🎉</h2>
+          <p>Salemabad के ग्राहकों के लिए विशेष डिस्काउंट और कॉम्बो डील्स की जानकारी सीधे WhatsApp पर पाएं।</p>
+        </div>
+        <a class="btn btn-gold" href="https://wa.me/918503090848?text=Namaste%20New%20Look%20Readymade%2C%20mujhe%20special%20offers%20ki%20jankari%20chahiye." target="_blank">
+          🎁 Get Offers On WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <!-- STORE FEATURES GRID -->
+    <section>
+      <div class="section-header">
+        <span class="section-subtitle">OUR ADVANTAGES</span>
+        <h2 class="section-title">Why Choose New Look Readymade?</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">🛍️</div>
+          <h4>Wide Collection</h4>
+          <p>Men, Women और Kids की ताज़ा वैरायटी</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📲</div>
+          <h4>WhatsApp Order</h4>
+          <p>फोटो भेजकर घर बैठे पूछताछ व ऑर्डर करें</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🚚</div>
+          <h4>Fast Home Delivery</h4>
+          <p>Salemabad व आसपास के क्षेत्रों में डिलीवरी</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💳</div>
+          <h4>Online UPI Payment</h4>
+          <p>Google Pay, PhonePe, Paytm व Cash</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT STORE / CONTACT -->
+    <section id="contact">
+      <div class="section-header">
+        <span class="section-subtitle">STORE LOCATION</span>
+        <h2 class="section-title">Visit New Look Readymade</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>📍 Shop Address</h3>
+          <div class="contact-info">
+            <p>
+              <b>New Look Readymade</b><br>
+              Shree Nimark Tirth, Salemabad<br>
+              Rajasthan - 305814
+            </p>
+            <p>
+              ⏰ <b>Shop Timing</b>: 9:30 AM - 8:30 PM (Open All Days)
+            </p>
+          </div>
+          <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=Shree%20Nimark%20Tirth%2C%20Salemabad" target="_blank">
+            🗺️ Google Maps पर लोकेशन देखें
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <h3>📞 Quick Enquiry / Order</h3>
+          <div class="contact-info">
+            <p>
+              Mobile / WhatsApp: <b>8503090848</b><br>
+              कलेक्शन देखने, साइज पूछने या नया आर्डर देने के लिए तुरंत कॉल या व्हाट्सएप करें।
+            </p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+            <a class="btn btn-whatsapp" href="https://wa.me/918503090848?text=Namaste%20New%20Look%20Readymade%2C%20mujhe%20shopping%20karni%20hai." target="_blank">
+              📲 Order on WhatsApp
+            </a>
+            <a class="btn btn-outline" style="color:#111; border-color:#cbd5e1;" href="tel:+918503090848">
+              📞 Direct Call
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CART DRAWER OVERLAY -->
+  <div class="cart-drawer-overlay" id="cart-overlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3>🛒 Shopping Cart</h3>
+        <button class="close-cart" id="close-cart">✕</button>
+      </div>
+      <div class="cart-body" id="cart-body">
+        <!-- Rendered by app.js -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Total:</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <button class="btn btn-gold" style="width:100%; font-size:1rem;" id="checkout-btn">
+          💳 Proceed to Delivery & Payment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK VIEW MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div id="modal-body">
+      <!-- Rendered by app.js -->
+    </div>
+  </div>
+
+  <!-- CUSTOMER CHECKOUT & PAYMENT MODAL -->
+  <div class="modal-overlay" id="checkout-modal-overlay">
+    <div class="admin-modal-container" style="max-width:580px;">
+      <button class="close-modal" id="close-checkout">✕</button>
+      
+      <!-- CHECKOUT FORM SECTION -->
+      <div id="checkout-form-sec">
+        <h2 style="font-family:'Playfair Display',serif; text-align:center; margin-bottom:6px;">🛍️ Order Checkout</h2>
+        <p style="text-align:center; color:#64748b; font-size:0.88rem; margin-bottom:15px;">
+          कृपया डिलीवरी का पता और पेमेंट का माध्यम चुनें।
+        </p>
+
+        <!-- Order Items Summary Box -->
+        <div id="checkout-order-summary"></div>
+
+        <form id="customer-checkout-form">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group">
+              <label>आपका नाम (Full Name): *</label>
+              <input type="text" class="form-control" id="cust-name" placeholder="उदा: Rahul Sharma" required>
+            </div>
+            <div class="form-group">
+              <label>मोबाइल नंबर (WhatsApp No.): *</label>
+              <input type="tel" class="form-control" id="cust-phone" placeholder="8503xxxxxx" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>डिलीवरी एड्रेस (Full Address): *</label>
+            <input type="text" class="form-control" id="cust-address" placeholder="मकान नंबर, गली/मोहल्ला, लैंडमार्क..." required>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group">
+              <label>शहर / क्षेत्र (City):</label>
+              <input type="text" class="form-control" id="cust-city" value="Salemabad" readonly>
+            </div>
+            <div class="form-group">
+              <label>पिन कोड (Pincode):</label>
+              <input type="text" class="form-control" value="305814" readonly>
+            </div>
+          </div>
+
+          <!-- PAYMENT METHOD SELECTOR -->
+          <div class="form-group" style="margin-top:10px;">
+            <label style="font-weight:700; font-size:0.95rem; margin-bottom:8px; display:block;">💳 भुगतान का माध्यम चुनें (Payment Mode): *</label>
+            
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; background:#fff;">
+                <input type="radio" name="payment_method" value="UPI" checked onclick="togglePaymentMethodDetails('UPI')">
+                <div>
+                  <b>💳 Online UPI Payment</b> (Google Pay, PhonePe, Paytm, BHIM)
+                  <div style="font-size:0.78rem; color:#64748b;">ऑर्डर के बाद तुरंत UPI QR Code / UPI ID पर ऑनलाइन भुगतान करें</div>
+                </div>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; background:#fff;">
+                <input type="radio" name="payment_method" value="COD" onclick="togglePaymentMethodDetails('COD')">
+                <div>
+                  <b>💵 Cash on Delivery (COD)</b>
+                  <div style="font-size:0.78rem; color:#64748b;">डिलीवरी मिलने पर नकद या डिजिटल पेमेंट करें</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- UPI Details Info Box -->
+          <div id="upi-details-sec" style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:12px; margin-bottom:15px; font-size:0.85rem;">
+            <div style="font-weight:700; color:#1d4ed8;">📲 Store Official UPI ID:</div>
+            <div style="font-size:1rem; font-weight:800; color:#0f172a; margin:4px 0;">8503090848@ybl</div>
+            <div style="color:#475569;">ऑर्डर सबमिट करने पर व्हाट्सएप रसीद जनरेट होगी, जिसपर पेमेंट सेंड किया जा सकता है।</div>
+          </div>
+
+          <div id="cod-details-sec" style="display:none; background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:12px; margin-bottom:15px; font-size:0.85rem;">
+            <div style="font-weight:700; color:#15803d;">🚚 Cash on Delivery Active</div>
+            <div style="color:#334155;">आपके Salemabad पते पर डिलीवरी बॉय सामान पहुंचाते समय पेमेंट लेगा।</div>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width:100%; font-size:1.05rem;">
+            🎉 Order Confirm करें & WhatsApp रसीद पाएं
+          </button>
+        </form>
+      </div>
+
+      <!-- SUCCESS CONFIRMATION SECTION -->
+      <div id="checkout-success-sec" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL MODAL OVERLAY -->
+  <div class="modal-overlay" id="admin-modal-overlay">
+    <div class="admin-modal-container">
+      <button class="close-modal" id="close-admin">✕</button>
+      
+      <!-- LOGIN SECTION -->
+      <div id="admin-login-sec">
+        <h2 style="font-family:'Playfair Display',serif; text-align:center; margin-bottom:12px;">🔒 Admin Store Login</h2>
+        <p style="text-align:center; color:#64748b; font-size:0.9rem; margin-bottom:20px;">
+          अपनी दुकान के नए कपड़े जोड़ने, फोटो, प्राइस व साइज अपडेट करने के लिए Admin PIN दर्ज करें।
+        </p>
+        <div class="form-group">
+          <label>Admin PIN Code:</label>
+          <input type="password" class="form-control" id="admin-pin-input" placeholder="Enter PIN (Default: 8503)">
+        </div>
+        <button class="btn btn-gold" style="width:100%;" id="admin-login-btn">🔓 Login to Admin Panel</button>
+      </div>
+
+      <!-- ADMIN DASHBOARD PANEL -->
+      <div id="admin-panel-sec" style="display:none;">
+        <h3 style="font-family:'Playfair Display',serif; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
+          <span>⚙️ Store Management Panel</span>
+          <span style="font-size:0.8rem; background:#10b981; color:white; padding:4px 8px; border-radius:12px;">ACTIVE</span>
+        </h3>
+
+        <!-- Admin Tabs -->
+        <div class="admin-tabs-row">
+          <button class="admin-tab-btn active" onclick="switchAdminTab('add-product')">➕ नया कपड़ा जोड़ें</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('inventory')">📦 मैनेज कपड़े</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('orders')">📑 ग्राहक ऑर्डर्स</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ सेटिंग्स</button>
+        </div>
+
+        <!-- TAB 1: ADD PRODUCT FORM -->
+        <div class="admin-tab-content" id="admin-tab-add-product">
+          <form id="add-product-form">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label>कपड़े का नाम (Product Name):</label>
+                <input type="text" class="form-control" id="admin-prod-title" placeholder="उदा: Men's Designer Shirt" required>
+              </div>
+              <div class="form-group">
+                <label>कैटेगरी (Category):</label>
+                <select class="form-control" id="admin-prod-category">
+                  <option value="men">Men's Wear (पुरुष)</option>
+                  <option value="women">Women's Wear (महिला)</option>
+                  <option value="kids">Kids Wear (बच्चे)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label>बिक्री मूल्य (Price ₹):</label>
+                <input type="number" class="form-control" id="admin-prod-price" placeholder="899" required>
+              </div>
+              <div class="form-group">
+                <label>पुराना मूल्य (MRP ₹):</label>
+                <input type="number" class="form-control" id="admin-prod-mrp" placeholder="1499">
+              </div>
+              <div class="form-group">
+                <label>टैग (Badge Tag):</label>
+                <select class="form-control" id="admin-prod-tag">
+                  <option value="NEW ARRIVAL">NEW ARRIVAL</option>
+                  <option value="BESTSELLER">BESTSELLER</option>
+                  <option value="FESTIVE SPECIAL">FESTIVE SPECIAL</option>
+                  <option value="LIMITED STOCK">LIMITED STOCK</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>उपलब्ध साइज (Check Sizes):</label>
+              <div style="display:flex; gap:15px; font-size:0.9rem;">
+                <label><input type="checkbox" class="admin-size-cb" value="S"> S</label>
+                <label><input type="checkbox" class="admin-size-cb" value="M" checked> M</label>
+                <label><input type="checkbox" class="admin-size-cb" value="L" checked> L</label>
+                <label><input type="checkbox" class="admin-size-cb" value="XL" checked> XL</label>
+                <label><input type="checkbox" class="admin-size-cb" value="XXL"> XXL</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>कपड़े की फोटो (Upload Image File or Paste Link):</label>
+              <input type="file" class="form-control" id="admin-prod-file" accept="image/*">
+              <input type="text" class="form-control" id="admin-prod-imgurl" placeholder="या फोटो का वेब लिंक paste करें (Option)" style="margin-top:6px;">
+              <div id="img-preview-box"></div>
+            </div>
+
+            <div class="form-group">
+              <label>विवरण (Description):</label>
+              <textarea class="form-control" id="admin-prod-desc" rows="2" placeholder="कपड़े का फैब्रिक, स्टाइल विवरण लिखें..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-gold" style="width:100%;">🚀 वेबसाइट पर कपड़ा लाइव सहेजें</button>
+          </form>
+        </div>
+
+        <!-- TAB 2: INVENTORY LIST -->
+        <div class="admin-tab-content" id="admin-tab-inventory" style="display:none;">
+          <h4 style="margin-bottom:10px;">दुकान में मौजूद कपड़े (Current Catalog):</h4>
+          <div id="admin-inventory-list" style="max-height:300px; overflow-y:auto; border:1px solid #e2e8f0; border-radius:8px; padding:8px;">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- TAB 3: CUSTOMER ORDERS -->
+        <div class="admin-tab-content" id="admin-tab-orders" style="display:none;">
+          <h4 style="margin-bottom:10px;">ग्राहक ऑर्डर्स व डिलीवरी (Customer Orders Log):</h4>
+          <div id="admin-orders-list" style="max-height:300px; overflow-y:auto;">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- TAB 4: SETTINGS -->
+        <div class="admin-tab-content" id="admin-tab-settings" style="display:none;">
+          <h4>Admin Security & Database</h4>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
+            <button class="btn btn-outline" style="color:#111; border-color:#cbd5e1;" onclick="changeAdminPin()">🔑 Admin PIN बदलें</button>
+            <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5;" onclick="resetAdminProductsDefault()">🔄 डिफ़ॉल्ट सैंपल इमेजेज पर रीसेट करें</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/918503090848?text=Namaste%20New%20Look%20Readymade%2C%20mujhe%20shopping%20ke%20baare%20mein%20jankari%20chahiye." class="whatsapp-float" target="_blank" aria-label="WhatsApp Order">
+    💬
+  </a>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-text" style="margin-bottom:12px;">
+          <b style="color:#fff; font-size:1.4rem;">New Look</b>
+          <span>READYMADE</span>
+        </div>
+        <p>
+          आपके पूरे परिवार के लिए बेहतरीन रेडीमेड कपड़ों का एकमात्र विश्वसनीय शोरूम। Men, Women और Kids के लेटेस्ट फैशन कलेक्शन के लिए Salemabad में पधारें।
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#catalog">Collection</a></li>
+          <li><a href="#offers">Special Offers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul class="footer-links">
+          <li><a href="#catalog">Men's Shirts & Jeans</a></li>
+          <li><a href="#catalog">Women's Designer Kurtis</a></li>
+          <li><a href="#catalog">Kids Festive Wear</a></li>
+          <li><a href="#catalog">Traditional Kurta Pajama</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Store</h4>
+        <p>📍 Shree Nimark Tirth, Salemabad</p>
+        <p>📞 Phone: 8503090848</p>
+        <p>🚚 Home Delivery Available</p>
+        <p style="margin-top:10px;"><a href="#" onclick="openAdminModal(); return false;" style="color:var(--primary-gold); font-size:0.85rem; font-weight:bold;">⚙️ Shop Owner / Admin Login</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 New Look Readymade • Shree Nimark Tirth, Salemabad. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
