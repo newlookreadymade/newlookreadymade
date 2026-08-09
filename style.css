@@ -1316,3 +1316,17 @@ footer {
   .owner-mini-badge span { font-size:.65rem; }
   .return-nav-link { display:none !important; }
 }
+
+
+/* --- CUSTOMER UPI PAYMENT STEP --- */
+#checkout-payment-sec .btn {
+  text-decoration: none;
+}
+#payment-upi-id {
+  letter-spacing: .2px;
+}
+@media (max-width: 520px) {
+  #checkout-payment-sec .btn {
+    width: 100%;
+  }
+}

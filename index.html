@@ -437,6 +437,56 @@
         </form>
       </div>
 
+
+      <!-- PAYMENT STEP: SHOWN ONLY AFTER CUSTOMER FILLS DELIVERY DETAILS -->
+      <div id="checkout-payment-sec" style="display:none;">
+        <div style="text-align:center; margin-bottom:18px;">
+          <div style="font-size:2.4rem;">💳</div>
+          <h2 style="font-family:'Playfair Display',serif; margin:4px 0;">Payment करें</h2>
+          <p style="color:#64748b; font-size:0.85rem; margin:0;">
+            आपकी Delivery Details सुरक्षित हैं। अब Owner को UPI Payment करें।
+          </p>
+        </div>
+
+        <div style="background:linear-gradient(135deg,#eff6ff,#f8fafc); border:1.5px solid #bfdbfe; border-radius:14px; padding:18px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px;">
+            <span style="font-weight:700; color:#334155;">कुल Order Amount</span>
+            <strong id="payment-total-amount" style="font-size:1.45rem; color:#d97706;">₹0</strong>
+          </div>
+
+          <div style="background:#fff; border:1px solid #dbeafe; border-radius:10px; padding:12px;">
+            <div style="font-size:.78rem; color:#64748b; margin-bottom:4px;">Owner UPI ID</div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <strong id="payment-upi-id" style="font-size:1rem; color:#0f172a; word-break:break-all;">8503090848@ybl</strong>
+              <button type="button" class="btn btn-outline" style="padding:7px 10px; font-size:.78rem; flex-shrink:0;" onclick="copyOwnerUpiId()">📋 Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#ecfdf5; border:1px solid #bbf7d0; border-radius:10px; padding:12px; margin-bottom:14px; color:#166534; font-size:.86rem;">
+          📱 <b>Pay Now</b> दबाने पर आपके मोबाइल में उपलब्ध UPI App (Google Pay / PhonePe / Paytm / BHIM आदि) खुल सकता है।
+          Payment करने के बाद नीचे <b>मैंने Payment कर दिया</b> दबाएँ।
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a id="upi-pay-btn" class="btn btn-gold" href="#" style="width:100%; font-size:1.05rem;">
+            💳 Pay Now — ₹0
+          </a>
+
+          <button type="button" class="btn btn-whatsapp" id="payment-done-btn" style="width:100%; font-size:1.05rem;">
+            ✅ मैंने Payment कर दिया
+          </button>
+
+          <button type="button" class="btn btn-outline" style="color:#111; border-color:#cbd5e1;" onclick="backToCheckoutDetails()">
+            ← Delivery Details बदलें
+          </button>
+        </div>
+
+        <p style="font-size:.72rem; color:#64748b; text-align:center; margin:14px 0 0;">
+          ⚠️ वेबसाइट UPI payment को स्वतः verify नहीं करती। Payment के बाद Owner WhatsApp पर order/payment status confirm करेगा।
+        </p>
+      </div>
+
       <!-- SUCCESS CONFIRMATION SECTION -->
       <div id="checkout-success-sec" style="display:none;"></div>
     </div>
@@ -615,6 +665,23 @@
             <div id="owner-img-preview-box" style="margin-top:10px;"></div>
             <button class="btn btn-blue" style="margin-top:12px; width:100%; font-size:0.9rem;" onclick="updateOwnerProfilePhoto()">
               ✨ ऑनर फोटो सहेजें (Update Owner Photo)
+            </button>
+          </div>
+
+
+          <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:12px; padding:18px; margin:15px 0;">
+            <label style="font-weight:700; font-size:0.95rem; color:#166534; display:block; margin-bottom:8px;">
+              💳 Owner UPI ID बदलें:
+            </label>
+            <input type="text" class="form-control" id="admin-upi-id"
+                   placeholder="उदा: 8503090848@ybl"
+                   autocomplete="off"
+                   style="margin-bottom:8px;">
+            <p style="font-size:.75rem; color:#64748b; margin:0 0 10px;">
+              यही UPI ID Customer को Payment Step में दिखाई जाएगी।
+            </p>
+            <button class="btn btn-blue" style="width:100%; font-size:0.9rem;" onclick="saveOwnerUpiId()">
+              💾 Owner UPI ID सहेजें
             </button>
           </div>
 

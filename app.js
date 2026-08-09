@@ -63,6 +63,15 @@ let wishlist = JSON.parse(localStorage.getItem('nlr_wishlist')) || [];
 let ordersLog = JSON.parse(localStorage.getItem('nlr_orders_log')) || [];
 let adminPin = localStorage.getItem('nlr_admin_pin') || "8503";
 
+const DEFAULT_OWNER_UPI_ID = "8503090848@ybl";
+let ownerUpiId = localStorage.getItem('nlr_owner_upi') || DEFAULT_OWNER_UPI_ID;
+
+function getOwnerUpiId() {
+  const saved = (localStorage.getItem('nlr_owner_upi') || DEFAULT_OWNER_UPI_ID).trim();
+  return saved || DEFAULT_OWNER_UPI_ID;
+}
+
+
 // ============================================================
 // 🔐 ADMIN SECURITY CONFIG — SIRF AAPKO PATA HONA CHAHIYE
 // ============================================================
@@ -573,13 +582,20 @@ function setupCheckoutListeners() {
   if (checkoutForm) {
     checkoutForm.addEventListener('submit', processCustomerOrderSubmit);
   }
+
+  const paymentDoneBtn = document.getElementById('payment-done-btn');
+  if (paymentDoneBtn) {
+    paymentDoneBtn.addEventListener('click', finalizeCustomerOrderAfterPayment);
+  }
 }
 
 function openCheckoutModal() {
   closeAllModals();
   renderCheckoutOrderSummary();
   checkoutModalOverlay.classList.add('active');
+
   document.getElementById('checkout-form-sec').style.display = 'block';
+  document.getElementById('checkout-payment-sec').style.display = 'none';
   document.getElementById('checkout-success-sec').style.display = 'none';
 }
 
@@ -639,15 +655,15 @@ function renderCheckoutOrderSummary() {
         <span style="font-weight:900; font-size:1.25rem; color:#d97706;">₹${total}</span>
       </div>
       <div style="font-size:0.75rem; color:#16a34a; font-weight:700; text-align:center; margin-top:6px;">
-        🚚 Salemabad में Home Delivery बिल्कुल FREE!
+        🚚 पूरे भारत में Home Delivery उपलब्ध
       </div>
     </div>
   `;
 }
 
-
 function processCustomerOrderSubmit(e) {
   e.preventDefault();
+
   const custName = document.getElementById('cust-name').value.trim();
   const custPhone = document.getElementById('cust-phone').value.trim();
   const custAddress = document.getElementById('cust-address').value.trim();
@@ -662,16 +678,110 @@ function processCustomerOrderSubmit(e) {
 
   let totalAmount = 0;
   cart.forEach(item => totalAmount += (item.price * item.qty));
-  const orderId = 'NLR-' + Math.floor(100000 + Math.random() * 900000);
-  const orderDate = new Date().toLocaleString('hi-IN');
-  const fullAddress = `${custAddress}, ${custCity}, ${custState} - ${custPincode}`;
+
+  const pendingCheckout = {
+    orderId: 'NLR-' + Math.floor(100000 + Math.random() * 900000),
+    orderDate: new Date().toLocaleString('hi-IN'),
+    custName,
+    custPhone,
+    custAddress,
+    custCity,
+    custState,
+    custPincode,
+    fullAddress: `${custAddress}, ${custCity}, ${custState} - ${custPincode}`,
+    totalAmount,
+    items: [...cart]
+  };
+
+  localStorage.setItem('nlr_pending_checkout', JSON.stringify(pendingCheckout));
+  showCheckoutPaymentStep(pendingCheckout);
+}
+
+function showCheckoutPaymentStep(data) {
+  const formSec = document.getElementById('checkout-form-sec');
+  const paymentSec = document.getElementById('checkout-payment-sec');
+  const successSec = document.getElementById('checkout-success-sec');
+
+  if (!formSec || !paymentSec) return;
+
+  formSec.style.display = 'none';
+  successSec.style.display = 'none';
+  paymentSec.style.display = 'block';
+
+  const upi = getOwnerUpiId();
+  const amount = Number(data.totalAmount || 0).toFixed(2);
+  const upiLink =
+    `upi://pay?pa=${encodeURIComponent(upi)}` +
+    `&pn=${encodeURIComponent('New Look Readymade')}` +
+    `&am=${encodeURIComponent(amount)}` +
+    `&cu=INR` +
+    `&tn=${encodeURIComponent('New Look Order ' + data.orderId)}`;
+
+  const upiText = document.getElementById('payment-upi-id');
+  const amountText = document.getElementById('payment-total-amount');
+  const payBtn = document.getElementById('upi-pay-btn');
+
+  if (upiText) upiText.textContent = upi;
+  if (amountText) amountText.textContent = `₹${Number(data.totalAmount || 0).toLocaleString('en-IN')}`;
+  if (payBtn) {
+    payBtn.href = upiLink;
+    payBtn.textContent = `💳 Pay Now — ₹${Number(data.totalAmount || 0).toLocaleString('en-IN')}`;
+  }
+}
+
+function copyOwnerUpiId() {
+  const upi = getOwnerUpiId();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(upi).then(
+      () => alert(`✅ UPI ID कॉपी हो गई:\n${upi}`),
+      () => alert(`Owner UPI ID:\n${upi}`)
+    );
+  } else {
+    alert(`Owner UPI ID:\n${upi}`);
+  }
+}
+
+function backToCheckoutDetails() {
+  const formSec = document.getElementById('checkout-form-sec');
+  const paymentSec = document.getElementById('checkout-payment-sec');
+  if (paymentSec) paymentSec.style.display = 'none';
+  if (formSec) formSec.style.display = 'block';
+}
+
+function finalizeCustomerOrderAfterPayment() {
+  const raw = localStorage.getItem('nlr_pending_checkout');
+  if (!raw) {
+    alert('Checkout session नहीं मिला। कृपया दोबारा order करें।');
+    backToCheckoutDetails();
+    return;
+  }
+
+  const data = JSON.parse(raw);
+  const orderId = data.orderId;
+  const orderDate = data.orderDate;
+  const custName = data.custName;
+  const custPhone = data.custPhone;
+  const fullAddress = data.fullAddress;
+  const totalAmount = data.totalAmount;
+  const paymentUpi = getOwnerUpiId();
 
   const newOrderObj = {
-    orderId, date: orderDate, customerName: custName, phone: custPhone,
-    address: fullAddress, city: custCity, state: custState, pincode: custPincode,
-    paymentMode: 'Store confirmation required', items: [...cart], total: totalAmount,
-    status: 'Order Placed'
+    orderId,
+    date: orderDate,
+    customerName: custName,
+    phone: custPhone,
+    address: fullAddress,
+    city: data.custCity,
+    state: data.custState,
+    pincode: data.custPincode,
+    paymentMode: 'UPI',
+    paymentStatus: 'Customer marked payment completed',
+    paymentUpi,
+    items: data.items,
+    total: totalAmount,
+    status: 'Order Placed - Payment Marked Done'
   };
+
   ordersLog.unshift(newOrderObj);
   localStorage.setItem('nlr_orders_log', JSON.stringify(ordersLog));
 
@@ -680,31 +790,46 @@ function processCustomerOrderSubmit(e) {
   text += `👤 *Customer*: ${custName}\n📞 *Phone*: ${custPhone}\n`;
   text += `📍 *Delivery Address*: ${fullAddress}\n🚚 *Delivery*: All India Home Delivery\n`;
   text += `💰 *TOTAL AMOUNT*: ₹${totalAmount}\n`;
-  text += `💳 *Payment*: Store will contact customer for payment instructions\n-----------------------------------\n*ORDERED ITEMS*:\n`;
-  cart.forEach((item,index)=>{ text += `${index+1}. *${item.title}*\n   Size: ${item.selectedSize} | Qty: ${item.qty} | Price: ₹${item.price*item.qty}\n`; });
+  text += `💳 *Payment Mode*: UPI\n`;
+  text += `🏦 *Owner UPI*: ${paymentUpi}\n`;
+  text += `✅ *Customer Status*: Payment marked as completed\n`;
+  text += `-----------------------------------\n*ORDERED ITEMS*:\n`;
+  data.items.forEach((item,index)=>{
+    text += `${index+1}. *${item.title}*\n   Size: ${item.selectedSize} | Qty: ${item.qty} | Price: ₹${item.price*item.qty}\n`;
+  });
   text += `-----------------------------------\n🚚 *Status*: Order Placed - All India Delivery\n`;
 
-  document.getElementById('checkout-form-sec').style.display='none';
-  const successSec=document.getElementById('checkout-success-sec');
-  successSec.innerHTML=`
+  document.getElementById('checkout-payment-sec').style.display = 'none';
+  const successSec = document.getElementById('checkout-success-sec');
+
+  successSec.innerHTML = `
     <div style="text-align:center;padding:20px 10px;">
       <div style="font-size:4rem;color:#10b981;">🎉</div>
       <h2 style="font-family:'Playfair Display',serif;color:#0f172a;">ऑर्डर सफलतापूर्वक प्राप्त हुआ!</h2>
-      <p style="color:#64748b;">धन्यवाद <b>${custName}</b>! आपका ऑर्डर नंबर <b>${orderId}</b> सहेज लिया गया है।</p>
+      <p style="color:#64748b;">धन्यवाद <b>${custName}</b>! आपका ऑर्डर नंबर <b>${orderId}</b> दर्ज हो गया है।</p>
       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:15px;text-align:left;margin:18px 0;font-size:.9rem;">
         <div><b>कुल बिल</b>: ₹${totalAmount}</div>
         <div><b>डिलीवरी पता</b>: ${fullAddress}</div>
         <div><b>संपर्क नंबर</b>: ${custPhone}</div>
         <div><b>डिलीवरी</b>: 🚚 All India Home Delivery</div>
-        <div><b>पेमेंट</b>: Store confirmation के बाद</div>
+        <div><b>पेमेंट</b>: 💳 UPI — Customer marked payment completed</div>
+      </div>
+      <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px;font-size:.78rem;color:#9a3412;margin-bottom:12px;">
+        ⚠️ Payment verification Owner द्वारा की जाएगी।
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <a class="btn btn-whatsapp" style="width:100%;font-size:1.05rem;" href="https://wa.me/918503090848?text=${encodeURIComponent(text)}" target="_blank">📲 WhatsApp पर Order Details भेजें</a>
         <button class="btn btn-outline" style="color:#111;border-color:#cbd5e1;" onclick="closeCheckoutModal()">🛍️ और शॉपिंग करें</button>
       </div>
     </div>`;
+
   successSec.style.display='block';
-  cart=[]; localStorage.setItem('nlr_cart',JSON.stringify(cart)); updateBadges(); renderCartDrawer();
+
+  localStorage.removeItem('nlr_pending_checkout');
+  cart = [];
+  localStorage.setItem('nlr_cart', JSON.stringify(cart));
+  updateBadges();
+  renderCartDrawer();
 }
 
 function openReturnModal(){ closeAllModals(); const overlay=document.getElementById('return-modal-overlay'); if(overlay) overlay.classList.add('active'); }
@@ -814,6 +939,7 @@ function handleAdminLogin() {
   if (enteredPin === adminPin) {
     adminLoginSec.style.display = 'none';
     adminPanelSec.style.display = 'block';
+    loadAdminUpiSettings();
     renderAdminInventoryList();
     renderAdminOrdersList();
   } else {
@@ -954,6 +1080,29 @@ function updateOwnerProfilePhoto() {
   } else {
     alert('कृपया पहले अपनी फोटो सेलेक्ट करें या लिंक पेस्ट करें।');
   }
+}
+
+function loadAdminUpiSettings() {
+  const input = document.getElementById('admin-upi-id');
+  if (input) input.value = getOwnerUpiId();
+}
+
+function saveOwnerUpiId() {
+  const input = document.getElementById('admin-upi-id');
+  if (!input) return;
+
+  const value = input.value.trim().toLowerCase();
+  const upiPattern = /^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9._-]{2,}$/;
+
+  if (!upiPattern.test(value)) {
+    alert('⚠️ कृपया सही UPI ID डालें। उदाहरण: 8503090848@ybl');
+    input.focus();
+    return;
+  }
+
+  localStorage.setItem('nlr_owner_upi', value);
+  ownerUpiId = value;
+  alert(`✅ Owner UPI ID सफलतापूर्वक बदल गई:\n${value}`);
 }
 
 function resetAdminProductsDefault() {
