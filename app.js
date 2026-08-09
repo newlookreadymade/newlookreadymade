@@ -156,6 +156,152 @@ const translations = {
   }
 };
 
+
+
+/* ========================================================================
+   FULL-PAGE CUSTOMER LANGUAGE TRANSLATION
+   English is the default. Static and dynamically-rendered Hindi customer
+   text is translated when EN is selected; the reverse mapping restores Hindi.
+   ======================================================================== */
+const FULL_PAGE_HI_EN = {
+  "पूरे भारत में Home Delivery उपलब्ध": "All India Home Delivery Available",
+  "WhatsApp ऑर्डर: 8503090848": "WhatsApp Order: 8503090848",
+  "आपके पूरे परिवार के लिए": "For Your Entire Family",
+  "नया Fashion Look": "New Fashion Look",
+  "Men • Women • Kids — लेटेस्ट रेडीमेड कलेक्शन, प्रीमियम फैब्रिक, बेहतरीन फिटिंग और पूरे भारत में सीधी WhatsApp होम डिलीवरी।": "Men • Women • Kids — Latest readymade collection, premium fabrics, great fitting and direct WhatsApp home delivery across India.",
+  "WhatsApp पर पूछें": "Ask on WhatsApp",
+  "Salemabad के ग्राहकों के लिए विशेष डिस्काउंट और कॉम्बो डील्स की जानकारी सीधे WhatsApp पर पाएं।": "Get special discounts and combo deal updates for Salemabad customers directly on WhatsApp.",
+  "Men, Women और Kids की ताज़ा वैरायटी": "Latest variety for Men, Women and Kids",
+  "फोटो भेजकर घर बैठे पूछताछ व ऑर्डर करें": "Send a photo to enquire and order from home",
+  "पूरे भारत में Home Delivery": "All India Home Delivery",
+  "हमारे दुकान मालिक": "Our Store Owner",
+  "New Look Readymade के दुकान मालिक": "New Look Readymade Store Owner",
+  "पूरे भारत में डिलीवरी करने वाला आपका भरोसेमंद Readymade Store।": "Your trusted Readymade Store delivering across India.",
+  "Men, Women और Kids के लिए नवीनतम फैशन कलेक्शन उपलब्ध है।": "Latest fashion collections are available for Men, Women and Kids.",
+  "Google Maps पर लोकेशन देखें": "View Location on Google Maps",
+  "कलेक्शन देखने, साइज पूछने या नया आर्डर देने के लिए तुरंत कॉल या व्हाट्सएप करें।": "Call or WhatsApp us to view the collection, ask about sizes, or place a new order.",
+  "कुल राशि (Total):": "Total Amount:",
+  "📋 डिलीवरी Details भरें & Order करें": "📋 Enter Delivery Details & Place Order",
+  "Pay Now": "Pay Now",
+  "Payment पूरा करने के बाद वेबसाइट पर वापस आएँ — Payment Success स्क्रीन दिखाई जाएगी।": "After completing the payment, return to the website — the Payment Success screen will appear.",
+  "⚠️ Static website UPI transaction को bank-level पर स्वतः verify नहीं कर सकती। Payment के बाद Owner payment status verify कर सकता है।": "⚠️ A static website cannot automatically verify a UPI transaction at bank level. The Owner can verify the payment status after payment.",
+  "अपना Order ID और जानकारी भरें। Return Request WhatsApp पर भेजी जाएगी।": "Enter your Order ID and details. The Return Request will be sent on WhatsApp.",
+  "कारण चुनें": "Select Reason",
+  "कृपया समस्या/Return की जानकारी लिखें...": "Please describe the issue/return details...",
+  "ℹ️ Return request प्राप्त होने के बाद Store Team आपसे WhatsApp/Call पर Return की प्रक्रिया और eligibility की पुष्टि करेगी।": "ℹ️ After receiving the return request, the Store Team will contact you by WhatsApp/Call to confirm the return process and eligibility.",
+  "↩️ Return Request भेजें": "↩️ Send Return Request",
+  "अपनी दुकान के नए कपड़े जोड़ने, फोटो, प्राइस व साइज अपडेट करने के लिए Owner PIN दर्ज करें।": "Enter the Owner PIN to add new products and update photos, prices and sizes.",
+  "➕ नया कपड़ा जोड़ें": "➕ Add New Product",
+  "📦 मैनेज कपड़े": "📦 Manage Products",
+  "📑 ग्राहक ऑर्डर्स": "📑 Customer Orders",
+  "⚙️ सेटिंग्स & ऑनर फोटो": "⚙️ Settings & Owner Photo",
+  "कपड़े का नाम (Product Name):": "Product Name:",
+  "कैटेगरी (Category):": "Category:",
+  "Men's Wear (पुरुष)": "Men's Wear",
+  "Women's Wear (महिला)": "Women's Wear",
+  "Kids Wear (बच्चे)": "Kids Wear",
+  "बिक्री मूल्य (Price ₹):": "Sale Price (₹):",
+  "पुराना मूल्य (MRP ₹):": "Old Price (MRP ₹):",
+  "टैग (Badge Tag):": "Badge Tag:",
+  "उपलब्ध साइज (Check Sizes):": "Available Sizes:",
+  "कपड़े की फोटो (Upload Image File or Paste Link):": "Product Image (Upload Image File or Paste Link):",
+  "या फोटो का वेब लिंक paste करें (Option)": "Or paste the image web link (Optional)",
+  "विवरण (Description):": "Description:",
+  "कपड़े का फैब्रिक, स्टाइल विवरण लिखें...": "Enter fabric and style details...",
+  "🚀 वेबसाइट पर कपड़ा लाइव सहेजें": "🚀 Save Product Live on Website",
+  "दुकान में मौजूद कपड़े (Current Catalog):": "Products in Store (Current Catalog):",
+  "ग्राहक ऑर्डर्स व डिलीवरी (Customer Orders Log):": "Customer Orders & Delivery (Customer Orders Log):",
+  "📸 दुकान मालिक (Store Owner) की गोल फोटो बदलें:": "📸 Change Store Owner Profile Photo:",
+  "या अपनी फोटो की वेब लिंक Paste करें": "Or paste your photo web link",
+  "✨ ऑनर फोटो सहेजें (Update Owner Photo)": "✨ Save Owner Photo (Update Owner Photo)",
+  "💳 Owner UPI ID बदलें:": "💳 Change Owner UPI ID:",
+  "यही UPI ID Customer को Payment Step में दिखाई जाएगी।": "This UPI ID will be shown to the Customer during the Payment Step.",
+  "💾 Owner UPI ID सहेजें": "💾 Save Owner UPI ID",
+  "🔑 Admin PIN बदलें": "🔑 Change Admin PIN",
+  "🔄 डिफ़ॉल्ट सैंपल इमेजेज पर रीसेट करें": "🔄 Reset to Default Sample Images",
+  "आपके पूरे परिवार के लिए बेहतरीन रेडीमेड कपड़ों का एकमात्र विश्वसनीय शोरूम। Men, Women और Kids के लेटेस्ट फैशन कलेक्शन के लिए Salemabad में पधारें।": "Your trusted family readymade showroom. Visit us in Salemabad for the latest fashion collections for Men, Women and Kids.",
+  "आपकी कार्ट खाली है! कृपया पहले अपनी पसंद के कपड़े जोड़ें।": "Your cart is empty! Please add your preferred products first.",
+  "कोई प्रोडक्ट नहीं मिला": "No products found",
+  "कृपया दूसरा कीवर्ड या कैटेगरी सर्च करके देखें।": "Please try another keyword or category.",
+  "Size चुनें & Cart में जोड़ें": "Select Size & Add to Cart",
+  "Size चुनें & Add": "Select Size & Add",
+  "📏 साइज़ चुनें": "📏 Select Size",
+  "⚠️ कृपया पहले साइज़ चुनें!": "⚠️ Please select a size first!",
+  "🛒 Cart में जोड़ें": "🛒 Add to Cart",
+  "💳 अभी Order करें": "💳 Order Now",
+  "आपकी कार्ट खाली है": "Your Cart is Empty",
+  "न्यू कलेक्शन एक्सप्लोर करें और अपने पसंदीदा कपड़े ऐड करें!": "Explore the new collection and add your favorite products!",
+  "📦 आपके Selected Items (": "📦 Your Selected Items (",
+  "कुल देय राशि:": "Total Payable Amount:",
+  "कृपया नाम, मोबाइल, पूरा पता, City, State और 6 अंकों का Pincode सही दर्ज करें।": "Please enter your name, mobile number, complete address, city, state and a valid 6-digit pincode.",
+  "UPI ID कॉपी हो गई:": "UPI ID copied:",
+  "Checkout session नहीं मिला। कृपया दोबारा order करें।": "Checkout session not found. Please place the order again.",
+  "धन्यवाद ": "Thank you ",
+  "! आपका ऑर्डर नंबर ": "! Your Order Number ",
+  "कुल बिल": "Total Bill",
+  "डिलीवरी पता": "Delivery Address",
+  "संपर्क नंबर": "Contact Number",
+  "पेमेंट": "Payment",
+  "Payment verification Owner द्वारा की जाएगी।": "Payment verification will be done by the Owner.",
+  "📲 WhatsApp पर Order Details भेजें": "📲 Send Order Details on WhatsApp",
+  "🛍️ और शॉपिंग करें": "🛍️ Continue Shopping",
+  "कृपया Order ID, Mobile Number और Return Reason भरें।": "Please enter Order ID, Mobile Number and Return Reason.",
+  "कृपया Return/Exchange प्रक्रिया के लिए ग्राहक से संपर्क करें।": "Please contact the customer for the Return/Exchange process.",
+  "Return Request भेज दी गई!": "Return Request Sent!",
+  "आपका Return Request ID:": "Your Return Request ID:",
+  "📲 WhatsApp पर Return Request भेजें": "📲 Send Return Request on WhatsApp",
+  "बंद करें": "Close",
+  "❌ गलत Owner PIN! डिफ़ॉल्ट PIN 8503 दर्ज करें।": "❌ Incorrect Owner PIN! Enter the default PIN 8503.",
+  "कृपया प्रोडक्ट का नाम और कीमत सही दर्ज करें।": "Please enter a valid product name and price.",
+  "सफलता से आपकी दुकान पर लाइव जोड़ दिया गया है।": "has been successfully added to your store.",
+  "कोई प्रोडक्ट उपलब्ध नहीं है।": "No products are available.",
+  "🗑️ हटाएं": "🗑️ Delete",
+  "क्या आप वाकई इस प्रोडक्ट को दुकान से हटाना चाहते हैं?": "Are you sure you want to delete this product from the store?",
+  "अभी तक कोई ग्राहक ऑर्डर दर्ज नहीं हुआ है।": "No customer orders have been recorded yet.",
+  "ऑर्डर #": "Order #",
+  "👤 ग्राहक:": "👤 Customer:",
+  "📍 पता:": "📍 Address:",
+  "कुल राशी:": "Total Amount:",
+  "आपकी ऑनर फोटो सफलता से सहेज दी गई है!": "Your Owner photo has been saved successfully!",
+  "कृपया पहले अपनी फोटो सेलेक्ट करें या लिंक पेस्ट करें।": "Please select your photo or paste a link first.",
+  "⚠️ कृपया सही UPI ID डालें। उदाहरण:": "⚠️ Please enter a valid UPI ID. Example:",
+  "Owner UPI ID सफलतापूर्वक बदल गई:": "Owner UPI ID changed successfully:",
+  "क्या आप सभी प्रोडक्ट्स को वापस डिफ़ॉल्ट सैंपल पर रीसेट करना चाहते हैं?": "Do you want to reset all products to the default samples?",
+  "सफलतापूर्वक डिफ़ॉल्ट पर रीसेट किया गया!": "Successfully reset to defaults!",
+  "Admin PIN बदलें": "Change Admin PIN",
+  "पहले Master Secret Key डालें": "Enter the Master Secret Key first",
+  "Master key डालें...": "Enter Master Key...",
+  "🔑 नया Admin PIN (4+ अंक)": "🔑 New Admin PIN (4+ digits)",
+  "नया PIN डालें...": "Enter New PIN...",
+  "❌ रद्द करें": "❌ Cancel",
+  "✅ PIN बदलें": "✅ Change PIN",
+  "🛡️ सिर्फ Store Owner के लिए": "🛡️ Store Owner Only",
+  "🚫 3 बार गलत! 30 मिनट के लिए बंद किया गया।": "🚫 3 failed attempts! Locked for 30 minutes.",
+  "❌ गलत Master Key! ": "❌ Incorrect Master Key! ",
+  "⚠️ PIN कम से कम 4 अंक का होना चाहिए!": "⚠️ PIN must contain at least 4 digits!",
+  "⚠️ PIN में सिर्फ नंबर (0-9) डालें!": "⚠️ PIN must contain numbers only (0-9)!",
+  "आपका Admin PIN बदलकर ": "Your Admin PIN has been changed to ",
+  "🔐 अब Master Secret Key के बिना कोई PIN नहीं बदल सकता।": "🔐 No one can change the PIN without the Master Secret Key.",
+  "हिं": "HI",
+  "हिंदी": "Hindi",
+  "पूरे भारत में": "Across India",
+  "नया आर्डर": "new order"
+};
+const FULL_PAGE_EN_HI = Object.fromEntries(Object.entries(FULL_PAGE_HI_EN).map(([hi,en]) => [en,hi]));
+function translateVisibleText(lang) {
+  const map = lang === 'hi' ? FULL_PAGE_EN_HI : FULL_PAGE_HI_EN;
+  const keys = Object.keys(map).filter(Boolean).sort((a,b)=>b.length-a.length);
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const nodes=[];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    if (!node.parentElement || ['SCRIPT','STYLE'].includes(node.parentElement.tagName)) return;
+    let text=node.nodeValue;
+    for (const key of keys) if (text.includes(key)) text=text.split(key).join(map[key]);
+    if (text!==node.nodeValue) node.nodeValue=text;
+  });
+}
+
 function applyLanguage(lang) {
   lang = lang === 'hi' ? 'hi' : 'en';
   localStorage.setItem('nlr_language', lang);
@@ -228,6 +374,9 @@ function applyLanguage(lang) {
 
   // Keep customer-facing return link language consistent.
   document.querySelectorAll('.return-nav-link').forEach(el => el.textContent = t.return);
+
+  // Translate all remaining static/dynamic customer-visible text on the page.
+  translateVisibleText(lang);
 }
 
 function setupLanguageSwitcher() {
@@ -237,7 +386,18 @@ function setupLanguageSwitcher() {
     const current = localStorage.getItem('nlr_language') || 'en';
     applyLanguage(current === 'en' ? 'hi' : 'en');
   });
+  const LANG_VERSION = '3';
+  if (localStorage.getItem('nlr_language_version') !== LANG_VERSION) { localStorage.setItem('nlr_language_version', LANG_VERSION); localStorage.setItem('nlr_language', 'en'); }
   applyLanguage(localStorage.getItem('nlr_language') || 'en');
+
+  // Keep newly-created cart, product, return and payment UI in the selected language.
+  if (!window.__nlrLanguageObserver) {
+    window.__nlrLanguageObserver = new MutationObserver(() => {
+      const activeLang = localStorage.getItem('nlr_language') || 'en';
+      if (activeLang === 'en') translateVisibleText('en');
+    });
+    window.__nlrLanguageObserver.observe(document.body, { childList: true, subtree: true });
+  }
 }
 
 // INITIALIZE APP
