@@ -2,7 +2,7 @@
    NEW LOOK READYMADE - Salemabad | JavaScript Master Logic
    Includes: Dynamic Catalog, Search, Filters, Wishlist, Cart Drawer,
    Customer Checkout Modal (Address + Payment Modes: UPI/COD + Order Success),
-   AND Admin Panel Management System!
+   Admin Panel Management System AND Circular Store Owner Profile Manager!
    ========================================================================== */
 
 const INITIAL_PRODUCTS = [
@@ -14,7 +14,7 @@ const INITIAL_PRODUCTS = [
     mrp: 1499,
     discount: "40% OFF",
     sizes: ["M", "L", "XL", "XXL"],
-    image: "assets/mens_shirt.jpg",
+    image: "mens_shirt.jpg",
     tag: "BESTSELLER",
     description: "High-grade 100% pure breathable cotton formal shirt. Perfect for office, weddings, and special events."
   },
@@ -26,7 +26,7 @@ const INITIAL_PRODUCTS = [
     mrp: 2199,
     discount: "41% OFF",
     sizes: ["S", "M", "L", "XL"],
-    image: "assets/womens_kurti.jpg",
+    image: "womens_kurti.jpg",
     tag: "NEW ARRIVAL",
     description: "Elegant silk blend Kurti featuring royal zari gold thread work with matching dupatta."
   },
@@ -38,7 +38,7 @@ const INITIAL_PRODUCTS = [
     mrp: 2499,
     discount: "40% OFF",
     sizes: ["M", "L", "XL"],
-    image: "assets/mens_kurta.jpg",
+    image: "mens_kurta.jpg",
     tag: "FESTIVE SPECIAL",
     description: "Rich navy blue silk kurta set with detailed collar embroidery. Ideal for weddings and festivals."
   },
@@ -50,7 +50,7 @@ const INITIAL_PRODUCTS = [
     mrp: 1799,
     discount: "44% OFF",
     sizes: ["24", "28", "32", "36"],
-    image: "assets/kids_wear.jpg",
+    image: "kids_wear.jpg",
     tag: "POPULAR",
     description: "Soft, comfortable, and charming traditional outfit set designed for kids with skin-friendly lining."
   }
@@ -62,6 +62,7 @@ let cart = JSON.parse(localStorage.getItem('nlr_cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('nlr_wishlist')) || [];
 let ordersLog = JSON.parse(localStorage.getItem('nlr_orders_log')) || [];
 let adminPin = localStorage.getItem('nlr_admin_pin') || "8503";
+let ownerPhoto = localStorage.getItem('nlr_owner_photo') || "owner.png";
 
 let activeCategory = 'all';
 let searchQuery = '';
@@ -99,6 +100,7 @@ const closeAdminBtn = document.getElementById('close-admin');
 
 // INITIALIZE APP
 document.addEventListener('DOMContentLoaded', () => {
+  loadOwnerProfilePhoto();
   renderProducts();
   updateBadges();
   setupEventListeners();
@@ -106,9 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setupAdminListeners();
 });
 
+function loadOwnerProfilePhoto() {
+  const headerImg = document.getElementById('header-owner-img');
+  const heroImg = document.getElementById('hero-owner-img');
+  if (headerImg) headerImg.src = ownerPhoto;
+  if (heroImg) heroImg.src = ownerPhoto;
+}
+
 // EVENT LISTENERS SETUP
 function setupEventListeners() {
-  // Mobile drawer toggle
   if (mobileToggle) {
     mobileToggle.addEventListener('click', () => mobileOverlay.classList.add('active'));
   }
@@ -121,7 +129,6 @@ function setupEventListeners() {
     });
   }
 
-  // Cart drawer toggle
   if (cartBtn) {
     cartBtn.addEventListener('click', () => {
       renderCartDrawer();
@@ -137,7 +144,6 @@ function setupEventListeners() {
     });
   }
 
-  // Live search
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value.toLowerCase().trim();
@@ -145,7 +151,6 @@ function setupEventListeners() {
     });
   }
 
-  // Category Filter Tabs
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -155,7 +160,6 @@ function setupEventListeners() {
     });
   });
 
-  // Open Checkout Modal from Cart
   if (checkoutBtn) {
     checkoutBtn.addEventListener('click', () => {
       if (cart.length === 0) {
@@ -196,6 +200,8 @@ function renderProducts() {
       `Namaste New Look Readymade, mujhe is product ke baare mein enquiry karni hai:\n\n*${product.title}*\nPrice: ₹${product.price}\nSalemabad Shop`
     );
 
+    const imgSrc = product.image || 'logo.png';
+
     return `
       <div class="product-card">
         <div class="product-image-wrap">
@@ -203,7 +209,7 @@ function renderProducts() {
           <button class="wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="toggleWishlist(${product.id})" title="Wishlist">
             ${isWishlisted ? '❤️' : '🤍'}
           </button>
-          <img src="${product.image}" alt="${product.title}" loading="lazy" onerror="this.src='logo.png'">
+          <img src="${imgSrc}" alt="${product.title}" loading="lazy" onerror="this.onerror=null; this.src='logo.png';">
         </div>
         <div class="product-details">
           <span class="product-category-lbl">${product.category.toUpperCase()} COLLECTION</span>
@@ -228,7 +234,6 @@ function renderProducts() {
   }).join('');
 }
 
-// TOGGLE WISHLIST
 function toggleWishlist(productId) {
   const index = wishlist.indexOf(productId);
   if (index > -1) {
@@ -241,7 +246,6 @@ function toggleWishlist(productId) {
   renderProducts();
 }
 
-// QUICK VIEW MODAL
 function openQuickView(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -255,7 +259,7 @@ function openQuickView(productId) {
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal()">✕</button>
       <div class="modal-img-container">
-        <img src="${product.image}" alt="${product.title}" onerror="this.src='logo.png'">
+        <img src="${product.image}" alt="${product.title}" onerror="this.onerror=null; this.src='logo.png';">
       </div>
       <div class="modal-details-container">
         <span class="product-category-lbl">${product.category.toUpperCase()} • ${product.tag || 'SPECIAL'}</span>
@@ -299,7 +303,6 @@ function selectModalSize(btn, size) {
   btn.classList.add('active');
 }
 
-// CART DRAWER FUNCTIONS
 function addToCart(productId) {
   const existing = cart.find(item => item.id === productId);
   if (existing) {
@@ -348,7 +351,7 @@ function renderCartDrawer() {
     total += itemTotal;
     return `
       <div class="cart-item">
-        <img src="${item.image}" class="cart-item-img" alt="${item.title}">
+        <img src="${item.image}" class="cart-item-img" alt="${item.title}" onerror="this.onerror=null; this.src='logo.png';">
         <div class="cart-item-info">
           <div class="cart-item-title">${item.title}</div>
           <div class="cart-item-meta">Size: ${item.selectedSize || 'Standard'} • ₹${item.price}</div>
@@ -366,7 +369,6 @@ function renderCartDrawer() {
   cartSubtotalEl.innerText = `₹${total}`;
 }
 
-// BADGE COUNTER
 function updateBadges() {
   const totalCartQty = cart.reduce((acc, i) => acc + i.qty, 0);
   if (cartBadge) cartBadge.innerText = totalCartQty;
@@ -481,11 +483,9 @@ function processCustomerOrderSubmit(e) {
     total: totalAmount
   };
 
-  // Save order to store log
   ordersLog.unshift(newOrderObj);
   localStorage.setItem('nlr_orders_log', JSON.stringify(ordersLog));
 
-  // Build WhatsApp text
   let text = `🛍️ *NEW LOOK READYMADE - ORDER RECEIPT*\n`;
   text += `-----------------------------------\n`;
   text += `📋 *Order ID*: ${orderId}\n`;
@@ -504,7 +504,6 @@ function processCustomerOrderSubmit(e) {
   text += `💰 *TOTAL AMOUNT*: ₹${totalAmount}\n`;
   text += `🚚 *Status*: Order Placed (Home Delivery Salemabad)\n`;
 
-  // Show Order Success View
   document.getElementById('checkout-form-sec').style.display = 'none';
   const successSec = document.getElementById('checkout-success-sec');
   
@@ -536,7 +535,6 @@ function processCustomerOrderSubmit(e) {
 
   successSec.style.display = 'block';
 
-  // Clear Cart
   cart = [];
   localStorage.setItem('nlr_cart', JSON.stringify(cart));
   updateBadges();
@@ -544,7 +542,7 @@ function processCustomerOrderSubmit(e) {
 }
 
 /* ==========================================================================
-   ADMIN PANEL ENGINE (Add Product, Change Price, View Inventory & Orders)
+   ADMIN PANEL & OWNER CIRCULAR AVATAR ENGINE
    ========================================================================== */
 
 function setupAdminListeners() {
@@ -585,6 +583,21 @@ function setupAdminListeners() {
           document.getElementById('img-preview-box').innerHTML = `
             <img src="${evt.target.result}" style="max-height:100px; border-radius:8px; margin-top:8px;">
           `;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Owner Photo File Upload Handler
+  const ownerFileInput = document.getElementById('admin-owner-file');
+  if (ownerFileInput) {
+    ownerFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          document.getElementById('admin-owner-url').value = evt.target.result;
         };
         reader.readAsDataURL(file);
       }
@@ -643,7 +656,7 @@ function handleAddNewProduct(e) {
   }
 
   if (!image) {
-    image = 'assets/mens_shirt.jpg';
+    image = 'mens_shirt.jpg';
   }
 
   const discountPercent = Math.round(((mrp - price) / mrp) * 100);
@@ -686,14 +699,14 @@ function renderAdminInventoryList() {
   container.innerHTML = products.map(p => `
     <div style="display:flex; align-items:center; justify-content:space-between; padding:12px; border-bottom:1px solid #e2e8f0; background:#fff; margin-bottom:8px; border-radius:8px;">
       <div style="display:flex; align-items:center; gap:12px;">
-        <img src="${p.image}" style="width:48px; height:48px; border-radius:6px; object-fit:cover;" onerror="this.src='logo.png'">
+        <img src="${p.image}" style="width:48px; height:48px; border-radius:6px; object-fit:cover;" onerror="this.onerror=null; this.src='logo.png';">
         <div>
           <b style="font-size:0.95rem;">${p.title}</b>
           <div style="font-size:0.8rem; color:#64748b;">Category: ${p.category.toUpperCase()} | ₹${p.price} (MRP: ₹${p.mrp})</div>
         </div>
       </div>
       <button onclick="deleteProductByAdmin(${p.id})" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:0.8rem;">
-        🗑️ हटाएं
+        🗑️ बताएं/हताएं
       </button>
     </div>
   `).join('');
@@ -735,6 +748,19 @@ function renderAdminOrdersList() {
       <div style="font-weight:800; color:#16a34a; font-size:0.95rem;">कुल राशी: ₹${order.total}</div>
     </div>
   `).join('');
+}
+
+function updateOwnerProfilePhoto() {
+  const photoUrl = document.getElementById('admin-owner-url').value.trim();
+  if (photoUrl) {
+    ownerPhoto = photoUrl;
+    localStorage.setItem('nlr_owner_photo', ownerPhoto);
+    loadOwnerProfilePhoto();
+    alert('✅ आपकी गोल (Circular) ऑनर फोटो सफलता से अपडेट कर दी गई है!');
+    closeAdminModal();
+  } else {
+    alert('कृपया पहले अपनी फोटो सेलेक्ट करें या लिंक पेस्ट करें।');
+  }
 }
 
 function resetAdminProductsDefault() {

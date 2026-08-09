@@ -74,6 +74,15 @@
 
       <!-- Action Buttons & Search -->
       <div class="nav-actions">
+        <!-- CIRCULAR STORE OWNER AVATAR BADGE IN CORNER -->
+        <div class="owner-avatar-wrapper" onclick="openAdminModal()" title="Shop Owner Profile / Admin Login">
+          <img src="owner.png" class="owner-circle-img" id="header-owner-img" alt="Store Owner" onerror="this.onerror=null; this.src='logo.png';">
+          <div class="owner-info-text">
+            <b>Shop Owner</b>
+            <span>Verified Store</span>
+          </div>
+        </div>
+
         <div class="search-box">
           <span class="search-icon">🔍</span>
           <input type="text" id="search-input" placeholder="Search clothes...">
@@ -152,6 +161,15 @@
         </div>
 
         <div class="hero-card">
+          <!-- HERO CIRCULAR OWNER BADGE -->
+          <div class="hero-owner-badge">
+            <img src="owner.png" id="hero-owner-img" class="hero-owner-img" alt="Shopkeeper Avatar" onerror="this.onerror=null; this.src='logo.png';">
+            <div>
+              <div style="font-weight:800; font-size:1.05rem; color:#fff;">New Look Readymade</div>
+              <div style="font-size:0.8rem; color:var(--primary-gold);">Shree Nimark Tirth, Salemabad</div>
+            </div>
+          </div>
+
           <div class="hero-card-title">🌟 Why Shop At New Look?</div>
           <div class="hero-features-list">
             <div class="hero-feature-item">
@@ -457,7 +475,7 @@
           <button class="admin-tab-btn active" onclick="switchAdminTab('add-product')">➕ नया कपड़ा जोड़ें</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('inventory')">📦 मैनेज कपड़े</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('orders')">📑 ग्राहक ऑर्डर्स</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ सेटिंग्स</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ सेटिंग्स & प्रोफाइल</button>
         </div>
 
         <!-- TAB 1: ADD PRODUCT FORM -->
@@ -541,10 +559,20 @@
           </div>
         </div>
 
-        <!-- TAB 4: SETTINGS -->
+        <!-- TAB 4: SETTINGS & OWNER PROFILE -->
         <div class="admin-tab-content" id="admin-tab-settings" style="display:none;">
-          <h4>Admin Security & Database</h4>
-          <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
+          <h4>⚙️ Admin Security & Owner Photo Profile</h4>
+          
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:15px; margin:15px 0;">
+            <label style="font-weight:700; font-size:0.9rem; display:block; margin-bottom:6px;">📸 दुकानदार/ऑनर्स की गोल फोटो (Change Circular Owner Photo):</label>
+            <input type="file" class="form-control" id="admin-owner-file" accept="image/*">
+            <input type="text" class="form-control" id="admin-owner-url" placeholder="या अपनी फोटो की वेब लिंक Paste करें" style="margin-top:6px;">
+            <button class="btn btn-gold" style="margin-top:10px; width:100%; font-size:0.85rem;" onclick="updateOwnerProfilePhoto()">
+              ✨ ऑनर फोटो अपडेट करें (Update Corner Avatar)
+            </button>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
             <button class="btn btn-outline" style="color:#111; border-color:#cbd5e1;" onclick="changeAdminPin()">🔑 Admin PIN बदलें</button>
             <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5;" onclick="resetAdminProductsDefault()">🔄 डिफ़ॉल्ट सैंपल इमेजेज पर रीसेट करें</button>
           </div>

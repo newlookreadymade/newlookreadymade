@@ -1,17 +1,18 @@
 /* ==========================================================================
-   NEW LOOK READYMADE - Salemabad | Master Stylesheet
+   NEW LOOK READYMADE - Salemabad | Master Stylesheet (Ultra Luxury Edition)
    Theme: Luxury Dark Gold (#d4af37) & Cream/White
+   Features: Glassmorphic Cards, Gold Shimmer Rings, Corner Circular Owner Badge
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root {
   --primary-gold: #d4af37;
-  --gold-glow: rgba(212, 175, 55, 0.35);
+  --gold-glow: rgba(212, 175, 55, 0.4);
   --gold-light: #f7e396;
   --dark-bg: #0d0f12;
   --dark-card: #15181e;
-  --dark-border: rgba(255, 255, 255, 0.1);
+  --dark-border: rgba(212, 175, 55, 0.25);
   --text-main: #17191c;
   --text-light: #f5f6f8;
   --muted: #6b7280;
@@ -87,8 +88,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 2px 15px rgba(0,0,0,0.04);
 }
@@ -115,6 +116,7 @@ header {
   border-radius: var(--radius-sm);
   background: #000;
   padding: 2px;
+  border: 1px solid var(--primary-gold);
 }
 
 .brand-text b {
@@ -171,6 +173,53 @@ header {
   gap: 14px;
 }
 
+/* --- CIRCULAR OWNER AVATAR BADGE IN CORNER --- */
+.owner-avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 12px 3px 3px;
+  background: linear-gradient(135deg, #111, #1f242d);
+  border: 1.5px solid var(--primary-gold);
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.owner-avatar-wrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.owner-circle-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-gold);
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+.owner-info-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.owner-info-text b {
+  font-size: 0.78rem;
+  color: #ffffff;
+}
+
+.owner-info-text span {
+  font-size: 0.65rem;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
 .search-box {
   position: relative;
   display: flex;
@@ -183,7 +232,7 @@ header {
   border: 1px solid #e2e8f0;
   background: #f1f5f9;
   font-size: 0.88rem;
-  width: 160px;
+  width: 150px;
   transition: var(--transition);
   font-family: inherit;
 }
@@ -191,7 +240,7 @@ header {
 .search-box input:focus {
   outline: none;
   border-color: var(--primary-gold);
-  width: 220px;
+  width: 200px;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
 }
@@ -330,7 +379,7 @@ header {
 .hero-section {
   position: relative;
   min-height: 540px;
-  background: linear-gradient(135deg, rgba(13, 15, 18, 0.92) 0%, rgba(26, 30, 39, 0.85) 100%),
+  background: linear-gradient(135deg, rgba(13, 15, 18, 0.94) 0%, rgba(26, 30, 39, 0.88) 100%),
               url('logo.png') center/cover no-repeat;
   color: white;
   display: flex;
@@ -440,13 +489,36 @@ header {
 }
 
 .hero-card {
-  background: rgba(21, 24, 30, 0.7);
+  background: rgba(21, 24, 30, 0.75);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: var(--radius-lg);
   padding: 30px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
   text-align: center;
+  position: relative;
+}
+
+/* CIRCULAR OWNER HIGHLIGHT IN HERO CARD */
+.hero-owner-badge {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--dark-border);
+  border-radius: 50px;
+  padding: 8px 16px 8px 8px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.hero-owner-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-gold);
+  box-shadow: 0 0 12px var(--gold-glow);
 }
 
 .hero-card-title {
@@ -765,6 +837,7 @@ section {
   margin-bottom: 20px;
   border-bottom: 1px solid #e2e8f0;
   padding-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .admin-tab-btn {
@@ -908,6 +981,9 @@ footer {
   }
   .hero-title {
     font-size: 2.5rem;
+  }
+  .owner-info-text {
+    display: none;
   }
 }
 
