@@ -237,6 +237,41 @@ header {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
+
+/* --- LANGUAGE SWITCHER --- */
+.language-toggle {
+  height: 38px;
+  min-width: 64px;
+  padding: 0 9px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border-blue);
+  background: #ffffff;
+  color: #1e40af;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(37,99,235,.08);
+}
+.language-toggle:hover {
+  border-color: var(--accent-blue);
+  background: var(--accent-blue-light);
+  transform: translateY(-1px);
+}
+.language-toggle .lang-active {
+  color: var(--accent-blue);
+  font-weight: 900;
+}
+.language-toggle .lang-sep {
+  color: #94a3b8;
+}
+
 /* SETTINGS GEAR ICON SPECIAL STYLING */
 .settings-icon-btn {
   background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -1328,5 +1363,14 @@ footer {
 @media (max-width: 520px) {
   #checkout-payment-sec .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .language-toggle {
+    min-width: 58px;
+    height: 36px;
+    padding: 0 7px;
+    font-size: .72rem;
   }
 }

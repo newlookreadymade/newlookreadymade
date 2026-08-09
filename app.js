@@ -117,6 +117,129 @@ const adminPinInput = document.getElementById('admin-pin-input');
 const adminLoginBtn = document.getElementById('admin-login-btn');
 const closeAdminBtn = document.getElementById('close-admin');
 
+
+/* ==========================================================================
+   🌐 CUSTOMER LANGUAGE SWITCHER — English default, Hindi optional
+   ========================================================================== */
+const translations = {
+  en: {
+    home: "Home", categories: "Categories", collection: "Collection",
+    offers: "Special Offers", visit: "Visit Store", return: "↩ Return",
+    search: "Search clothes...", checkoutTitle: "Delivery Details",
+    checkoutSubtitle: "Enter your name and complete delivery address.",
+    fullName: "Full Name: *", mobile: "Mobile / WhatsApp No.: *",
+    address: "Delivery Address: *", city: "City: *", state: "State: *",
+    pincode: "Pincode: *", house: "House No., Street, Area, Landmark...",
+    pincodePh: "6-digit Pincode",
+    allIndia: "🚚 All India Delivery: Delivery is available across India to your complete address, city, state and pincode.",
+    continuePayment: "Continue to Payment", paymentTitle: "Make Payment",
+    paymentSubtitle: "Your delivery details are saved. Now pay the Store Owner by UPI.",
+    orderAmount: "Order Amount", ownerUpi: "Owner UPI ID",
+    copy: "📋 Copy", editDetails: "← Edit Delivery Details",
+    returnTitle: "Return Order", language: "Language"
+  },
+  hi: {
+    home: "होम", categories: "कैटेगरी", collection: "कलेक्शन",
+    offers: "खास ऑफर", visit: "स्टोर देखें", return: "↩ रिटर्न",
+    search: "कपड़े खोजें...", checkoutTitle: "डिलीवरी विवरण",
+    checkoutSubtitle: "अपना नाम और पूरा डिलीवरी पता भरें।",
+    fullName: "पूरा नाम: *", mobile: "मोबाइल / WhatsApp नंबर: *",
+    address: "डिलीवरी पता: *", city: "शहर: *", state: "राज्य: *",
+    pincode: "पिन कोड: *", house: "मकान नंबर, गली, मोहल्ला, लैंडमार्क...",
+    pincodePh: "6 अंकों का पिन कोड",
+    allIndia: "🚚 पूरे भारत में डिलीवरी: सही पता, शहर, राज्य और पिनकोड दें।",
+    continuePayment: "पेमेंट के लिए आगे बढ़ें", paymentTitle: "पेमेंट करें",
+    paymentSubtitle: "आपकी डिलीवरी जानकारी सेव है। अब Store Owner को UPI Payment करें।",
+    orderAmount: "ऑर्डर राशि", ownerUpi: "Owner UPI ID",
+    copy: "📋 कॉपी", editDetails: "← डिलीवरी विवरण बदलें",
+    returnTitle: "ऑर्डर रिटर्न", language: "भाषा"
+  }
+};
+
+function applyLanguage(lang) {
+  lang = lang === 'hi' ? 'hi' : 'en';
+  localStorage.setItem('nlr_language', lang);
+  document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
+
+  const t = translations[lang];
+  const nav = document.querySelectorAll('.nav-menu a');
+  if (nav.length >= 6) {
+    nav[0].textContent = t.home;
+    nav[1].textContent = t.categories;
+    nav[2].textContent = t.collection;
+    nav[3].textContent = t.offers;
+    nav[4].textContent = t.visit;
+    if (nav[6]) nav[6].textContent = t.return;
+  }
+
+  const search = document.getElementById('search-input');
+  if (search) search.placeholder = t.search;
+
+  const title = document.getElementById('checkout-title');
+  if (title) title.textContent = t.checkoutTitle;
+  const subtitle = document.getElementById('checkout-subtitle');
+  if (subtitle) subtitle.textContent = t.checkoutSubtitle;
+
+  const map = {
+    'lbl-cust-name': t.fullName, 'lbl-cust-phone': t.mobile,
+    'lbl-cust-address': t.address, 'lbl-cust-city': t.city,
+    'lbl-cust-state': t.state, 'lbl-cust-pincode': t.pincode
+  };
+  Object.entries(map).forEach(([id, text]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  });
+
+  const address = document.getElementById('cust-address');
+  if (address) address.placeholder = t.house;
+  const pin = document.getElementById('cust-pincode');
+  if (pin) pin.placeholder = t.pincodePh;
+
+  // All-India delivery notice in checkout.
+  const notices = document.querySelectorAll('#checkout-form-sec > form + div, #checkout-form-sec div[style*="All India Delivery"]');
+  notices.forEach(el => {
+    if (el && el.textContent.includes('All India Delivery')) el.innerHTML = t.allIndia;
+  });
+
+  const payTitle = document.getElementById('payment-title');
+  if (payTitle) payTitle.textContent = t.paymentTitle;
+
+  const paySec = document.getElementById('checkout-payment-sec');
+  if (paySec) {
+    const ps = paySec.querySelector('p');
+    if (ps) ps.textContent = t.paymentSubtitle;
+    const amountLabel = paySec.querySelector('span');
+    if (amountLabel) amountLabel.textContent = t.orderAmount;
+    const upiLabel = paySec.querySelector('div[style*="font-size:.78rem"]');
+    if (upiLabel) upiLabel.textContent = t.ownerUpi;
+    const copyBtn = paySec.querySelector('button[onclick="copyOwnerUpiId()"]');
+    if (copyBtn) copyBtn.textContent = t.copy;
+    const editBtn = paySec.querySelector('button[onclick="backToCheckoutDetails()"]');
+    if (editBtn) editBtn.textContent = t.editDetails;
+  }
+
+  const langBtn = document.getElementById('language-toggle');
+  if (langBtn) {
+    langBtn.innerHTML = lang === 'en'
+      ? '<span class="lang-active">EN</span><span class="lang-sep">|</span><span>हिं</span>'
+      : '<span>EN</span><span class="lang-sep">|</span><span class="lang-active">हिं</span>';
+    langBtn.title = t.language;
+  }
+
+  // Keep customer-facing return link language consistent.
+  document.querySelectorAll('.return-nav-link').forEach(el => el.textContent = t.return);
+}
+
+function setupLanguageSwitcher() {
+  const btn = document.getElementById('language-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const current = localStorage.getItem('nlr_language') || 'en';
+    applyLanguage(current === 'en' ? 'hi' : 'en');
+  });
+  applyLanguage(localStorage.getItem('nlr_language') || 'en');
+}
+
 // INITIALIZE APP
 function loadOwnerProfilePhoto() {
   const ownerPhoto = document.getElementById('owner-profile-photo');
@@ -130,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadOwnerProfilePhoto();
   renderProducts();
   updateBadges();
+  setupLanguageSwitcher();
   setupEventListeners();
   setupCheckoutListeners();
   setupReturnListeners();
@@ -583,9 +707,9 @@ function setupCheckoutListeners() {
     checkoutForm.addEventListener('submit', processCustomerOrderSubmit);
   }
 
-  const paymentDoneBtn = document.getElementById('payment-done-btn');
-  if (paymentDoneBtn) {
-    paymentDoneBtn.addEventListener('click', finalizeCustomerOrderAfterPayment);
+  const payBtn = document.getElementById('upi-pay-btn');
+  if (payBtn) {
+    payBtn.addEventListener('click', handlePayNowClick);
   }
 }
 
@@ -697,6 +821,47 @@ function processCustomerOrderSubmit(e) {
   showCheckoutPaymentStep(pendingCheckout);
 }
 
+
+function handlePayNowClick(e) {
+  const btn = e.currentTarget;
+  const raw = localStorage.getItem('nlr_pending_checkout');
+  if (!raw) return;
+
+  // The UPI URI is already assigned by showCheckoutPaymentStep().
+  // Open the UPI app, then finalize when the customer returns to this page.
+  localStorage.setItem('nlr_payment_started_at', String(Date.now()));
+  localStorage.setItem('nlr_waiting_for_upi_return', '1');
+
+  // Do not prevent the normal UPI navigation.
+  setTimeout(() => {
+    if (document.visibilityState === 'visible' && localStorage.getItem('nlr_waiting_for_upi_return') === '1') {
+      showPaymentReturnConfirmation();
+    }
+  }, 1200);
+}
+
+function showPaymentReturnConfirmation() {
+  if (localStorage.getItem('nlr_waiting_for_upi_return') !== '1') return;
+  localStorage.removeItem('nlr_waiting_for_upi_return');
+
+  // This is a customer-side confirmation screen. The static site cannot
+  // independently verify the bank transaction.
+  finalizeCustomerOrderAfterPayment();
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' &&
+      localStorage.getItem('nlr_waiting_for_upi_return') === '1') {
+    setTimeout(showPaymentReturnConfirmation, 500);
+  }
+});
+
+window.addEventListener('focus', () => {
+  if (localStorage.getItem('nlr_waiting_for_upi_return') === '1') {
+    setTimeout(showPaymentReturnConfirmation, 500);
+  }
+});
+
 function showCheckoutPaymentStep(data) {
   const formSec = document.getElementById('checkout-form-sec');
   const paymentSec = document.getElementById('checkout-payment-sec');
@@ -804,8 +969,9 @@ function finalizeCustomerOrderAfterPayment() {
 
   successSec.innerHTML = `
     <div style="text-align:center;padding:20px 10px;">
-      <div style="font-size:4rem;color:#10b981;">🎉</div>
-      <h2 style="font-family:'Playfair Display',serif;color:#0f172a;">ऑर्डर सफलतापूर्वक प्राप्त हुआ!</h2>
+      <div style="font-size:4rem;color:#10b981;">✅</div>
+      <h2 style="font-family:'Playfair Display',serif;color:#0f172a;">Payment Successful</h2>
+      <div style="display:inline-block;background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;border-radius:999px;padding:6px 14px;font-weight:800;margin:4px 0 10px;">✅ Payment Submitted Successfully</div>
       <p style="color:#64748b;">धन्यवाद <b>${custName}</b>! आपका ऑर्डर नंबर <b>${orderId}</b> दर्ज हो गया है।</p>
       <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:15px;text-align:left;margin:18px 0;font-size:.9rem;">
         <div><b>कुल बिल</b>: ₹${totalAmount}</div>

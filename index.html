@@ -97,6 +97,10 @@
         </button>
 
         <!-- STORE OWNER / ADMIN LOGIN SETTINGS GEAR BUTTON -->
+        <button class="language-toggle" id="language-toggle" type="button" title="Change Language">
+          <span class="lang-active">EN</span><span class="lang-sep">|</span><span>हिं</span>
+        </button>
+
         <button class="icon-btn settings-icon-btn" id="admin-btn" title="Shop Owner Login / Settings">
           ⚙️
         </button>
@@ -385,9 +389,9 @@
       <div id="checkout-form-sec">
         <div style="text-align:center; margin-bottom:18px;">
           <div style="font-size:2.2rem;">📋</div>
-          <h2 style="font-family:'Playfair Display',serif; margin:4px 0 4px; font-size:1.4rem;">डिलीवरी Details भरें</h2>
-          <p style="color:#64748b; font-size:0.85rem; margin:0;">
-            नीचे अपना नाम और पूरा delivery address भरें — WhatsApp पर order details भेजें
+          <h2 id="checkout-title" style="font-family:'Playfair Display',serif; margin:4px 0 4px; font-size:1.4rem;">Delivery Details</h2>
+          <p id="checkout-subtitle" style="color:#64748b; font-size:0.85rem; margin:0;">
+            Enter your name and complete delivery address.
           </p>
         </div>
 
@@ -397,42 +401,42 @@
         <form id="customer-checkout-form">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div class="form-group">
-              <label>आपका नाम (Full Name): *</label>
+              <label id="lbl-cust-name">Full Name: *</label>
               <input type="text" class="form-control" id="cust-name" placeholder="उदा: Rahul Sharma" required>
             </div>
             <div class="form-group">
-              <label>मोबाइल नंबर (WhatsApp No.): *</label>
+              <label id="lbl-cust-phone">Mobile / WhatsApp No.: *</label>
               <input type="tel" class="form-control" id="cust-phone" placeholder="8503xxxxxx" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label>डिलीवरी एड्रेस (Full Address): *</label>
-            <input type="text" class="form-control" id="cust-address" placeholder="मकान नंबर, गली/मोहल्ला, लैंडमार्क..." required>
+            <label id="lbl-cust-address">Delivery Address: *</label>
+            <input type="text" class="form-control" id="cust-address" placeholder="House No., Street, Area, Landmark..." required>
           </div>
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div class="form-group">
-              <label>शहर / क्षेत्र (City): *</label>
+              <label id="lbl-cust-city">City: *</label>
               <input type="text" class="form-control" id="cust-city" placeholder="उदा: Jaipur" required>
             </div>
             <div class="form-group">
-              <label>राज्य (State): *</label>
+              <label id="lbl-cust-state">State: *</label>
               <input type="text" class="form-control" id="cust-state" placeholder="उदा: Rajasthan" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label>पिन कोड (Pincode): *</label>
-            <input type="text" class="form-control" id="cust-pincode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6 अंकों का Pincode" required>
+            <label id="lbl-cust-pincode">Pincode: *</label>
+            <input type="text" class="form-control" id="cust-pincode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6-digit Pincode" required>
           </div>
 
           <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px; margin:10px 0 15px; font-size:0.86rem; color:#1e40af;">
-            🚚 <b>All India Delivery:</b> पूरे भारत में आपके दिए हुए सही Address, City, State और Pincode पर डिलीवरी उपलब्ध है।
+            🚚 <b>All India Delivery:</b> Delivery is available across India to your complete address, city, state and pincode.
           </div>
 
           <button type="submit" class="btn btn-gold" style="width:100%; font-size:1.05rem;">
-            🎉 Order Confirm करें & WhatsApp रसीद पाएं
+            Continue to Payment
           </button>
         </form>
       </div>
@@ -442,15 +446,15 @@
       <div id="checkout-payment-sec" style="display:none;">
         <div style="text-align:center; margin-bottom:18px;">
           <div style="font-size:2.4rem;">💳</div>
-          <h2 style="font-family:'Playfair Display',serif; margin:4px 0;">Payment करें</h2>
+          <h2 id="payment-title" style="font-family:'Playfair Display',serif; margin:4px 0;">Make Payment</h2>
           <p style="color:#64748b; font-size:0.85rem; margin:0;">
-            आपकी Delivery Details सुरक्षित हैं। अब Owner को UPI Payment करें।
+            Your delivery details are saved. Now pay the Store Owner by UPI.
           </p>
         </div>
 
         <div style="background:linear-gradient(135deg,#eff6ff,#f8fafc); border:1.5px solid #bfdbfe; border-radius:14px; padding:18px; margin-bottom:14px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px;">
-            <span style="font-weight:700; color:#334155;">कुल Order Amount</span>
+            <span style="font-weight:700; color:#334155;">Order Amount</span>
             <strong id="payment-total-amount" style="font-size:1.45rem; color:#d97706;">₹0</strong>
           </div>
 
@@ -464,26 +468,22 @@
         </div>
 
         <div style="background:#ecfdf5; border:1px solid #bbf7d0; border-radius:10px; padding:12px; margin-bottom:14px; color:#166534; font-size:.86rem;">
-          📱 <b>Pay Now</b> दबाने पर आपके मोबाइल में उपलब्ध UPI App (Google Pay / PhonePe / Paytm / BHIM आदि) खुल सकता है।
-          Payment करने के बाद नीचे <b>मैंने Payment कर दिया</b> दबाएँ।
+          📱 <b>Pay Now</b> दबाने पर आपके मोबाइल में उपलब्ध UPI App (Google Pay / PhonePe / Paytm / BHIM आदि) खुल जाएगा।
+          Payment पूरा करने के बाद वेबसाइट पर वापस आएँ — Payment Success स्क्रीन दिखाई जाएगी।
         </div>
 
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <a id="upi-pay-btn" class="btn btn-gold" href="#" style="width:100%; font-size:1.05rem;">
+          <a id="upi-pay-btn" class="btn btn-gold" href="#" style="width:100%; font-size:1.08rem;">
             💳 Pay Now — ₹0
           </a>
 
-          <button type="button" class="btn btn-whatsapp" id="payment-done-btn" style="width:100%; font-size:1.05rem;">
-            ✅ मैंने Payment कर दिया
-          </button>
-
           <button type="button" class="btn btn-outline" style="color:#111; border-color:#cbd5e1;" onclick="backToCheckoutDetails()">
-            ← Delivery Details बदलें
+            ← Edit Delivery Details
           </button>
         </div>
 
         <p style="font-size:.72rem; color:#64748b; text-align:center; margin:14px 0 0;">
-          ⚠️ वेबसाइट UPI payment को स्वतः verify नहीं करती। Payment के बाद Owner WhatsApp पर order/payment status confirm करेगा।
+          ⚠️ Static website UPI transaction को bank-level पर स्वतः verify नहीं कर सकती। Payment के बाद Owner payment status verify कर सकता है।
         </p>
       </div>
 
