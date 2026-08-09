@@ -74,15 +74,6 @@
 
       <!-- Action Buttons & Search -->
       <div class="nav-actions">
-        <!-- CIRCULAR STORE OWNER AVATAR BADGE IN CORNER -->
-        <div class="owner-avatar-wrapper" onclick="openAdminModal()" title="Shop Owner Profile / Admin Login">
-          <img src="owner.png" class="owner-circle-img" id="header-owner-img" alt="Store Owner" onerror="this.onerror=null; this.src='logo.png';">
-          <div class="owner-info-text">
-            <b>Shop Owner</b>
-            <span>Verified Store</span>
-          </div>
-        </div>
-
         <div class="search-box">
           <span class="search-icon">🔍</span>
           <input type="text" id="search-input" placeholder="Search clothes...">
@@ -98,8 +89,8 @@
           <span class="badge-count" id="cart-badge">0</span>
         </button>
 
-        <!-- Admin Login Button -->
-        <button class="icon-btn" id="admin-btn" title="Admin Store Panel" style="background:var(--dark-bg); color:var(--gold-light);">
+        <!-- STORE OWNER / ADMIN LOGIN SETTINGS GEAR BUTTON -->
+        <button class="icon-btn settings-icon-btn" id="admin-btn" title="Shop Owner Login / Settings">
           ⚙️
         </button>
 
@@ -128,7 +119,6 @@
           <li><a href="#catalog" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Shop Collection</a></li>
           <li><a href="#offers" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Special Offers</a></li>
           <li><a href="#contact" onclick="document.getElementById('mobile-overlay').classList.remove('active')">Store Address</a></li>
-          <li><a href="#" onclick="document.getElementById('mobile-overlay').classList.remove('active'); openAdminModal();">⚙️ Admin Login</a></li>
         </ul>
       </div>
       <div>
@@ -161,15 +151,6 @@
         </div>
 
         <div class="hero-card">
-          <!-- HERO CIRCULAR OWNER BADGE -->
-          <div class="hero-owner-badge">
-            <img src="owner.png" id="hero-owner-img" class="hero-owner-img" alt="Shopkeeper Avatar" onerror="this.onerror=null; this.src='logo.png';">
-            <div>
-              <div style="font-weight:800; font-size:1.05rem; color:#fff;">New Look Readymade</div>
-              <div style="font-size:0.8rem; color:var(--primary-gold);">Shree Nimark Tirth, Salemabad</div>
-            </div>
-          </div>
-
           <div class="hero-card-title">🌟 Why Shop At New Look?</div>
           <div class="hero-features-list">
             <div class="hero-feature-item">
@@ -339,11 +320,14 @@
       </div>
       <div class="cart-footer">
         <div class="cart-total-row">
-          <span>Total:</span>
-          <span id="cart-subtotal">₹0</span>
+          <span>कुल राशि (Total):</span>
+          <span id="cart-subtotal" style="font-size:1.2rem; font-weight:800;">₹0</span>
         </div>
-        <button class="btn btn-gold" style="width:100%; font-size:1rem;" id="checkout-btn">
-          💳 Proceed to Delivery & Payment
+        <div style="font-size:0.75rem; color:#16a34a; font-weight:600; text-align:center; margin:-4px 0 10px;">
+          🚚 Salemabad में Free Home Delivery!
+        </div>
+        <button class="btn btn-gold" style="width:100%; font-size:1rem; padding:13px; border-radius:12px;" id="checkout-btn">
+          📋 डिलीवरी Details भरें &amp; Order करें
         </button>
       </div>
     </div>
@@ -363,10 +347,13 @@
       
       <!-- CHECKOUT FORM SECTION -->
       <div id="checkout-form-sec">
-        <h2 style="font-family:'Playfair Display',serif; text-align:center; margin-bottom:6px;">🛍️ Order Checkout</h2>
-        <p style="text-align:center; color:#64748b; font-size:0.88rem; margin-bottom:15px;">
-          कृपया डिलीवरी का पता और पेमेंट का माध्यम चुनें।
-        </p>
+        <div style="text-align:center; margin-bottom:18px;">
+          <div style="font-size:2.2rem;">📋</div>
+          <h2 style="font-family:'Playfair Display',serif; margin:4px 0 4px; font-size:1.4rem;">डिलीवरी Details भरें</h2>
+          <p style="color:#64748b; font-size:0.85rem; margin:0;">
+            नीचे अपना नाम, पता और payment चुनें — WhatsApp पर receipt मिलेगी
+          </p>
+        </div>
 
         <!-- Order Items Summary Box -->
         <div id="checkout-order-summary"></div>
@@ -404,7 +391,7 @@
             <label style="font-weight:700; font-size:0.95rem; margin-bottom:8px; display:block;">💳 भुगतान का माध्यम चुनें (Payment Mode): *</label>
             
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; background:#fff;">
+              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1.5px solid var(--border-blue); border-radius:8px; cursor:pointer; background:#fff;">
                 <input type="radio" name="payment_method" value="UPI" checked onclick="togglePaymentMethodDetails('UPI')">
                 <div>
                   <b>💳 Online UPI Payment</b> (Google Pay, PhonePe, Paytm, BHIM)
@@ -412,7 +399,7 @@
                 </div>
               </label>
 
-              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; background:#fff;">
+              <label style="display:flex; align-items:center; gap:10px; padding:10px; border:1.5px solid var(--border-blue); border-radius:8px; cursor:pointer; background:#fff;">
                 <input type="radio" name="payment_method" value="COD" onclick="togglePaymentMethodDetails('COD')">
                 <div>
                   <b>💵 Cash on Delivery (COD)</b>
@@ -445,22 +432,22 @@
     </div>
   </div>
 
-  <!-- ADMIN PANEL MODAL OVERLAY -->
+  <!-- STORE OWNER / ADMIN PANEL MODAL OVERLAY -->
   <div class="modal-overlay" id="admin-modal-overlay">
     <div class="admin-modal-container">
       <button class="close-modal" id="close-admin">✕</button>
       
       <!-- LOGIN SECTION -->
       <div id="admin-login-sec">
-        <h2 style="font-family:'Playfair Display',serif; text-align:center; margin-bottom:12px;">🔒 Admin Store Login</h2>
+        <h2 style="font-family:'Playfair Display',serif; text-align:center; margin-bottom:12px;">🔒 Store Owner Login</h2>
         <p style="text-align:center; color:#64748b; font-size:0.9rem; margin-bottom:20px;">
-          अपनी दुकान के नए कपड़े जोड़ने, फोटो, प्राइस व साइज अपडेट करने के लिए Admin PIN दर्ज करें।
+          अपनी दुकान के नए कपड़े जोड़ने, फोटो, प्राइस व साइज अपडेट करने के लिए Owner PIN दर्ज करें।
         </p>
         <div class="form-group">
-          <label>Admin PIN Code:</label>
+          <label>Store Owner PIN Code:</label>
           <input type="password" class="form-control" id="admin-pin-input" placeholder="Enter PIN (Default: 8503)">
         </div>
-        <button class="btn btn-gold" style="width:100%;" id="admin-login-btn">🔓 Login to Admin Panel</button>
+        <button class="btn btn-gold" style="width:100%;" id="admin-login-btn">🔓 Login to Owner Panel</button>
       </div>
 
       <!-- ADMIN DASHBOARD PANEL -->
@@ -475,7 +462,7 @@
           <button class="admin-tab-btn active" onclick="switchAdminTab('add-product')">➕ नया कपड़ा जोड़ें</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('inventory')">📦 मैनेज कपड़े</button>
           <button class="admin-tab-btn" onclick="switchAdminTab('orders')">📑 ग्राहक ऑर्डर्स</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ सेटिंग्स & प्रोफाइल</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ सेटिंग्स & ऑनर फोटो</button>
         </div>
 
         <!-- TAB 1: ADD PRODUCT FORM -->
@@ -559,16 +546,17 @@
           </div>
         </div>
 
-        <!-- TAB 4: SETTINGS & OWNER PROFILE -->
+        <!-- TAB 4: SETTINGS & OWNER PROFILE PHOTO -->
         <div class="admin-tab-content" id="admin-tab-settings" style="display:none;">
-          <h4>⚙️ Admin Security & Owner Photo Profile</h4>
+          <h4>⚙️ Store Security & Owner Photo Manager</h4>
           
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:15px; margin:15px 0;">
-            <label style="font-weight:700; font-size:0.9rem; display:block; margin-bottom:6px;">📸 दुकानदार/ऑनर्स की गोल फोटो (Change Circular Owner Photo):</label>
+          <div style="background:#eff6ff; border:1.5px solid var(--border-blue); border-radius:12px; padding:18px; margin:15px 0;">
+            <label style="font-weight:700; font-size:0.95rem; color:#1e40af; display:block; margin-bottom:8px;">📸 दुकान मालिक (Store Owner) की गोल फोटो बदलें:</label>
             <input type="file" class="form-control" id="admin-owner-file" accept="image/*">
-            <input type="text" class="form-control" id="admin-owner-url" placeholder="या अपनी फोटो की वेब लिंक Paste करें" style="margin-top:6px;">
-            <button class="btn btn-gold" style="margin-top:10px; width:100%; font-size:0.85rem;" onclick="updateOwnerProfilePhoto()">
-              ✨ ऑनर फोटो अपडेट करें (Update Corner Avatar)
+            <input type="text" class="form-control" id="admin-owner-url" placeholder="या अपनी फोटो की वेब लिंक Paste करें" style="margin-top:8px;">
+            <div id="owner-img-preview-box" style="margin-top:10px;"></div>
+            <button class="btn btn-blue" style="margin-top:12px; width:100%; font-size:0.9rem;" onclick="updateOwnerProfilePhoto()">
+              ✨ ऑनर फोटो सहेजें (Update Owner Photo)
             </button>
           </div>
 
@@ -624,7 +612,6 @@
         <p>📍 Shree Nimark Tirth, Salemabad</p>
         <p>📞 Phone: 8503090848</p>
         <p>🚚 Home Delivery Available</p>
-        <p style="margin-top:10px;"><a href="#" onclick="openAdminModal(); return false;" style="color:var(--primary-gold); font-size:0.85rem; font-weight:bold;">⚙️ Shop Owner / Admin Login</a></p>
       </div>
     </div>
 
